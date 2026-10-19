@@ -1,23 +1,5 @@
 [
   {
-    "id": "term-cac",
-    "term": "CAC",
-    "expansion": "Custo de Aquisição de Clientes (Customer Acquisition Cost)",
-    "definition": "Total investido em marketing e vendas dividido pelo número de novos clientes conquistados no período.",
-    "example": "Reduzimos nosso CAC em 18% otimizando as campanhas e as conversões do site.",
-    "department": "Negócios & Vendas",
-    "importance": "essencial",
-    "tip": "A regra de ouro em negócios saudáveis: o LTV (valor gerado) deve ser consideravelmente maior que o CAC (ao menos 3x).",
-    "pronunciation": "C-A-C (Cáqui ou Cê-A-Cê)",
-    "tags": [
-      "vendas",
-      "marketing",
-      "finanças",
-      "crescimento"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-okr",
     "term": "OKR",
     "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
