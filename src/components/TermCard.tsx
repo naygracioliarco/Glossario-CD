@@ -18,10 +18,14 @@ export const TermCard: React.FC<TermCardProps> = ({
   onDelete,
 }) => {
   const [copied, setCopied] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const handleCopy = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const stopCardClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleCopy = (event: React.MouseEvent) => {
+    stopCardClick(event);
     const textToCopy = `*${term.term}* (${term.expansion}):\n${term.definition}\nExemplo: "${term.example}"`;
     navigator.clipboard.writeText(textToCopy);
     setCopied(true);
@@ -51,8 +55,13 @@ export const TermCard: React.FC<TermCardProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative z-10 flex items-center gap-1 shrink-0"
+            onClick={stopCardClick}
+            onMouseDown={stopCardClick}
+          >
             <button
+              type="button"
               onClick={handleCopy}
               title={copied ? 'Copiado!' : 'Copiar significado'}
               className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-slate-100 rounded-md transition-colors"
@@ -60,7 +69,11 @@ export const TermCard: React.FC<TermCardProps> = ({
               {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
             </button>
             <button
-              onClick={() => onToggleFavorite(term.id)}
+              type="button"
+              onClick={(event) => {
+                stopCardClick(event);
+                onToggleFavorite(term.id);
+              }}
               title={term.isFavorite ? 'Remover dos favoritos' : 'Favoritar sigla'}
               className="p-1.5 text-slate-400 hover:text-amber-500 hover:bg-slate-100 rounded-md transition-colors"
             >
@@ -71,27 +84,26 @@ export const TermCard: React.FC<TermCardProps> = ({
               />
             </button>
             <button
-              onClick={() => onEdit(term)}
+              type="button"
+              onClick={(event) => {
+                stopCardClick(event);
+                onEdit(term);
+              }}
               title="Editar termo"
               className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
             >
               <Pencil className="w-4 h-4" />
             </button>
             <button
-              onClick={() => {
-                if (!confirmDelete) {
-                  setConfirmDelete(true);
-                  window.setTimeout(() => setConfirmDelete(false), 4000);
-                  return;
+              type="button"
+              onClick={(event) => {
+                stopCardClick(event);
+                if (window.confirm(`Excluir "${term.term}" do glossário do time?`)) {
+                  onDelete(term.id);
                 }
-                onDelete(term.id);
               }}
-              title={confirmDelete ? 'Clique de novo para confirmar' : 'Excluir sigla'}
-              className={`p-1.5 rounded-md transition-colors ${
-                confirmDelete
-                  ? 'text-white bg-rose-600 hover:bg-rose-700'
-                  : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50'
-              }`}
+              title="Excluir sigla"
+              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors"
             >
               <Trash2 className="w-4 h-4" />
             </button>

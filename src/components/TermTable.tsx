@@ -18,7 +18,6 @@ export const TermTable: React.FC<TermTableProps> = ({
   onDelete,
 }) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const handleCopy = (e: React.MouseEvent, term: GlossaryTerm) => {
     e.stopPropagation();
@@ -94,22 +93,16 @@ export const TermTable: React.FC<TermTableProps> = ({
                       <Pencil className="w-3.5 h-3.5" />
                     </button>
                     <button
-                      onClick={() => {
-                        if (confirmDeleteId !== term.id) {
-                          setConfirmDeleteId(term.id);
-                          window.setTimeout(() => {
-                            setConfirmDeleteId((current) => (current === term.id ? null : current));
-                          }, 4000);
-                          return;
+                      type="button"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (window.confirm(`Excluir "${term.term}" do glossário do time?`)) {
+                          onDelete(term.id);
                         }
-                        onDelete(term.id);
                       }}
-                      title={confirmDeleteId === term.id ? 'Clique de novo para confirmar' : 'Excluir'}
-                      className={`p-1.5 rounded transition-colors ${
-                        confirmDeleteId === term.id
-                          ? 'text-white bg-rose-600 hover:bg-rose-700'
-                          : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50'
-                      }`}
+                      title="Excluir"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
