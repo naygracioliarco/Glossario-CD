@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { X, Download, Upload, RefreshCw, Trash2, FileSpreadsheet, Check, AlertCircle } from 'lucide-react';
+import { X, Download, Upload, RefreshCw, Trash2, FileSpreadsheet, Check, AlertCircle, KeyRound } from 'lucide-react';
 import { GlossaryTerm } from '../types';
 import { exportToCSV, exportToJSON, parseCSVInput, resetToDefaults } from '../utils/storage';
+import { clearGithubToken, hasGithubToken, saveGithubToken, TOKEN_SETUP_URL } from '../utils/publish';
 
 interface ManageDataModalProps {
   isOpen: boolean;
@@ -16,8 +17,10 @@ export const ManageDataModal: React.FC<ManageDataModalProps> = ({
   onClose,
   onUpdateTerms,
 }) => {
-  const [activeTab, setActiveTab] = useState<'export' | 'import' | 'reset'>('export');
+  const [activeTab, setActiveTab] = useState<'export' | 'import' | 'reset' | 'publish'>('export');
   const [csvPasteText, setCsvPasteText] = useState('');
+  const [publishToken, setPublishToken] = useState('');
+  const [tokenConfigured, setTokenConfigured] = useState(() => hasGithubToken());
   const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   if (!isOpen) return null;
@@ -180,6 +183,16 @@ export const ManageDataModal: React.FC<ManageDataModalProps> = ({
           >
             Limpar / Restaurar
           </button>
+          <button
+            onClick={() => setActiveTab('publish')}
+            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              activeTab === 'publish'
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Publicar
+          </button>
         </div>
 
         {/* TAB 1: EXPORT */}
@@ -330,6 +343,84 @@ export const ManageDataModal: React.FC<ManageDataModalProps> = ({
                 <RefreshCw className="w-3.5 h-3.5" />
                 Restaurar 40+ Siglas Padrão
               </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'publish' && (
+          <div className="mt-5 space-y-4">
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Para confirmar <strong>Ok, pode publicar</strong> no próprio site, este navegador precisa de um token do GitHub. Ele fica só aqui e é usado apenas quando você publica.
+            </p>
+
+            <div className={`p-3 rounded-xl border text-xs ${
+              tokenConfigured
+                ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                : 'bg-amber-50 border-amber-200 text-amber-900'
+            }`}>
+              {tokenConfigured
+                ? 'Publicação já configurada neste navegador.'
+                : 'Ainda não há token neste navegador. Cole um token para habilitar a publicação no site.'}
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-slate-700">
+                Token de publicação
+              </label>
+              <input
+                type="password"
+                value={publishToken}
+                onChange={(e) => setPublishToken(e.target.value)}
+                placeholder={tokenConfigured ? 'Cole um novo token para substituir' : 'Cole o token aqui'}
+                autoComplete="off"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Crie um token fine-grained com acesso ao repositório Glossario-CD e permissão Contents: Read and write.{' '}
+              <a
+                href={TOKEN_SETUP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-indigo-600 hover:text-indigo-800"
+              >
+                Criar token
+              </a>
+            </p>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (!publishToken.trim()) {
+                    setFeedbackMessage({ type: 'error', text: 'Cole o token antes de salvar.' });
+                    return;
+                  }
+                  saveGithubToken(publishToken);
+                  setPublishToken('');
+                  setTokenConfigured(true);
+                  setFeedbackMessage({ type: 'success', text: 'Token salvo neste navegador. A próxima publicação pode ser confirmada no site.' });
+                }}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
+              >
+                <KeyRound className="w-3.5 h-3.5" />
+                Salvar token
+              </button>
+              {tokenConfigured && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    clearGithubToken();
+                    setPublishToken('');
+                    setTokenConfigured(false);
+                    setFeedbackMessage({ type: 'success', text: 'Token removido deste navegador.' });
+                  }}
+                  className="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg transition-colors"
+                >
+                  Remover token
+                </button>
+              )}
             </div>
           </div>
         )}

@@ -19,7 +19,7 @@ export const PublishBanner: React.FC<PublishBannerProps> = ({
           Você tem alterações ainda não publicadas
         </p>
         <p className="text-xs text-amber-800 mt-0.5 leading-relaxed">
-          Elas já aparecem neste navegador. Clique em publicar para o time inteiro ver no site.
+          Elas já aparecem neste navegador. Confirme a publicação aqui no site para o time inteiro ver.
         </p>
       </div>
       <div className="flex items-center gap-2 shrink-0">

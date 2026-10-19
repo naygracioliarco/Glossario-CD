@@ -63,7 +63,7 @@ export const OnboardingGuideBanner: React.FC = () => {
             <div>
               <strong className="text-slate-800 block mb-0.5">Cadastre e publique para o time</strong>
               <p className="text-slate-600 leading-relaxed">
-                Use <strong>+ Nova Sigla</strong> e depois <em>Publicar para todos</em>. O glossário é compartilhado: todo mundo vê a mesma lista.
+                Use <strong>+ Nova Sigla</strong> e confirme <em>Ok, pode publicar</em> no próprio site. O time inteiro vê a mesma lista.
               </p>
             </div>
           </div>

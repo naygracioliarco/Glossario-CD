@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
 import { listsEqual, loadPendingTerms, loadSharedTerms, persistTerms, savePendingTerms } from './utils/storage';
-import { openSharedPublishIssue } from './utils/publish';
+import { publishTermsToGithub } from './utils/publish';
 import { DEPARTMENTS } from './data/defaultTerms';
 import { Header } from './components/Header';
 import { TermCard } from './components/TermCard';
@@ -29,6 +29,7 @@ import { OnboardingQuiz } from './components/OnboardingQuiz';
 import { AlphabetFilter } from './components/AlphabetFilter';
 import { OnboardingGuideBanner } from './components/OnboardingGuideBanner';
 import { PublishBanner } from './components/PublishBanner';
+import { PublishConfirmModal } from './components/PublishConfirmModal';
 
 export default function App() {
   const [terms, setTerms] = useState<GlossaryTerm[]>([]);
@@ -48,6 +49,8 @@ export default function App() {
   const [termToEdit, setTermToEdit] = useState<GlossaryTerm | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isManageOpen, setIsManageOpen] = useState(false);
+  const [isPublishOpen, setIsPublishOpen] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -100,32 +103,26 @@ export default function App() {
   };
 
   const handlePublishShared = () => {
-    const result = openSharedPublishIssue(terms);
-    setIsPublishing(true);
-    showToast(
-      result === 'clipboard'
-        ? 'JSON copiado. Cole no GitHub (Ctrl+V) e clique em Submit new issue.'
-        : 'Confirme a publicação na aba do GitHub que acabou de abrir.',
-    );
+    setPublishError(null);
+    setIsPublishOpen(true);
+  };
 
-    const startedAt = Date.now();
-    const timer = window.setInterval(async () => {
-      const shared = await loadSharedTerms();
-      if (listsEqual(shared, terms)) {
-        window.clearInterval(timer);
-        setSharedTerms(shared);
-        savePendingTerms(null);
-        setHasPending(false);
-        setIsPublishing(false);
-        showToast('Glossário publicado! O time já pode ver as novas siglas.');
-        return;
-      }
-      if (Date.now() - startedAt > 180000) {
-        window.clearInterval(timer);
-        setIsPublishing(false);
-        showToast('Ainda não vimos a publicação. Confirme o issue no GitHub e aguarde o deploy.');
-      }
-    }, 5000);
+  const handleConfirmPublish = async (token: string) => {
+    setIsPublishing(true);
+    setPublishError(null);
+    try {
+      await publishTermsToGithub(terms, token);
+      savePendingTerms(null);
+      setSharedTerms(terms);
+      setHasPending(false);
+      setIsPublishOpen(false);
+      showToast('Publicado! Em cerca de 1 minuto o time inteiro vê as novas siglas.');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Não foi possível publicar.';
+      setPublishError(message);
+    } finally {
+      setIsPublishing(false);
+    }
   };
 
   const handleDiscardPending = () => {
@@ -541,6 +538,22 @@ export default function App() {
         onClose={() => setIsManageOpen(false)}
         onUpdateTerms={(newTerms) => {
           updateTermsAndPersist(newTerms);
+        }}
+      />
+
+      <PublishConfirmModal
+        isOpen={isPublishOpen}
+        termCount={terms.length}
+        isPublishing={isPublishing}
+        errorMessage={publishError}
+        onClose={() => {
+          if (!isPublishing) {
+            setIsPublishOpen(false);
+            setPublishError(null);
+          }
+        }}
+        onConfirm={(token) => {
+          void handleConfirmPublish(token);
         }}
       />
 
