@@ -18,23 +18,6 @@
     "isFavorite": true
   },
   {
-    "id": "term-churn",
-    "term": "Churn Rate",
-    "expansion": "Taxa de Cancelamento / Evasão de Clientes",
-    "definition": "Percentual de clientes ou de receita que cancelou o serviço/assinatura em um determinado período de tempo.",
-    "example": "Fechamos o mês com um churn de 1.2%, bem abaixo da meta estabelecida pela diretoria.",
-    "department": "Negócios & Vendas",
-    "importance": "essencial",
-    "tip": "No contexto de RH, também se fala em \"churn de equipe\", referindo-se a colaboradores que saíram da empresa.",
-    "pronunciation": "Tchãrn",
-    "tags": [
-      "cancelamento",
-      "retenção",
-      "saúde-do-negócio"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-okr",
     "term": "OKR",
     "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
