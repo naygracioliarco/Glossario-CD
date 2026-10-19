@@ -482,23 +482,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-asap",
-    "term": "ASAP",
-    "expansion": "As Soon As Possible (O mais rápido possível)",
-    "definition": "Expressão usada em mensagens para indicar que algo precisa ser feito com urgência ou prioridade máxima.",
-    "example": "Pode me enviar o link da apresentação ASAP? A reunião já começou.",
-    "department": "Geral & Comunicação",
-    "importance": "essencial",
-    "tip": "Use com moderação: se tudo for urgente/ASAP, nada é realmente priorizado.",
-    "pronunciation": "Ei-Sép ou A-S-A-P",
-    "tags": [
-      "urgência",
-      "comunicação",
-      "slack"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-fyi",
     "term": "FYI",
     "expansion": "For Your Information (Para Seu Conhecimento)",
