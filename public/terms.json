@@ -89,23 +89,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-poc",
-    "term": "POC",
-    "expansion": "Proof of Concept (Prova de Conceito)",
-    "definition": "Um teste experimental técnico para comprovar se uma ideia, tecnologia ou integração é viável na prática.",
-    "example": "Antes de assinar o contrato da nova ferramenta, vamos rodar uma POC de duas semanas.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Geralmente tem código descartável, feito apenas para responder à pergunta: \"é tecnicamente possível?\".",
-    "pronunciation": "Póque ou P-O-C",
-    "tags": [
-      "tecnologia",
-      "teste",
-      "viabilidade"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-api",
     "term": "API",
     "expansion": "Application Programming Interface (Interface de Programação de Aplicações)",
