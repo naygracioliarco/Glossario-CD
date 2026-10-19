@@ -18,6 +18,7 @@ export const TermCard: React.FC<TermCardProps> = ({
   onDelete,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const stopCardClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -41,8 +42,45 @@ export const TermCard: React.FC<TermCardProps> = ({
   return (
     <article
       onClick={() => onSelect(term)}
-      className="group relative bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo-300 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
+      className="group relative overflow-hidden bg-white rounded-xl border border-slate-200 p-5 hover:border-indigo-300 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
     >
+      {confirmDelete && (
+        <div
+          className="absolute inset-0 z-30 bg-white/95 backdrop-blur-[1px] flex flex-col items-center justify-center gap-3 p-4"
+          onClick={stopCardClick}
+          onMouseDown={stopCardClick}
+        >
+          <p className="text-sm font-semibold text-slate-900 text-center">
+            Excluir {term.term}?
+          </p>
+          <p className="text-xs text-slate-500 text-center">
+            A sigla some para todo o time.
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={(event) => {
+                stopCardClick(event);
+                setConfirmDelete(false);
+              }}
+              className="px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={(event) => {
+                stopCardClick(event);
+                setConfirmDelete(false);
+                onDelete(term.id);
+              }}
+              className="px-3 py-1.5 text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded-lg"
+            >
+              Excluir
+            </button>
+          </div>
+        </div>
+      )}
       <div>
         {/* Top row: Acronym + Fast Actions */}
         <div className="flex items-start justify-between gap-3 mb-2">
@@ -98,9 +136,7 @@ export const TermCard: React.FC<TermCardProps> = ({
               type="button"
               onClick={(event) => {
                 stopCardClick(event);
-                if (window.confirm(`Excluir "${term.term}" do glossário do time?`)) {
-                  onDelete(term.id);
-                }
+                setConfirmDelete(true);
               }}
               title="Excluir sigla"
               className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors"

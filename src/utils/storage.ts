@@ -1,5 +1,6 @@
 import { GlossaryTerm } from '../types';
 import { INITIAL_TERMS } from '../data/defaultTerms';
+import {stripFavorites} from './favorites';
 import {
   fetchGlossaryFile,
   fetchTermsFromGithub,
@@ -125,11 +126,14 @@ export async function persistTerms(
   previousShared: GlossaryTerm[] = terms,
   deletedIds: string[] = [],
 ): Promise<GlossaryTerm[]> {
+  const localTerms = stripFavorites(terms);
+  const previous = stripFavorites(previousShared);
+
   if (import.meta.env.DEV) {
     const response = await fetch('/__glossary/terms', {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(terms),
+      body: JSON.stringify(localTerms),
     });
     if (!response.ok) {
       throw new Error('Falha ao salvar o glossário no arquivo compartilhado');
@@ -142,7 +146,7 @@ export async function persistTerms(
       savePendingTerms(null);
       return terms;
     }
-    savePendingTerms(terms, deletedIds);
+    savePendingTerms(localTerms, deletedIds);
     throw new Error('A publicação compartilhada ainda não foi configurada.');
   }
 
@@ -150,7 +154,12 @@ export async function persistTerms(
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
       const file = await fetchGlossaryFile(token);
-      const merged = mergeSharedTerms(file.terms, terms, previousShared, deletedIds);
+      const merged = mergeSharedTerms(
+        stripFavorites(file.terms),
+        localTerms,
+        previous,
+        deletedIds,
+      );
       await publishTermsToGithub(merged, token, file.sha);
       savePendingTerms(null);
       return merged;

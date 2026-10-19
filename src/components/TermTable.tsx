@@ -18,6 +18,7 @@ export const TermTable: React.FC<TermTableProps> = ({
   onDelete,
 }) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const handleCopy = (e: React.MouseEvent, term: GlossaryTerm) => {
     e.stopPropagation();
@@ -92,20 +93,46 @@ export const TermTable: React.FC<TermTableProps> = ({
                     >
                       <Pencil className="w-3.5 h-3.5" />
                     </button>
+                    {confirmDeleteId === term.id ? (
+                      <div className="inline-flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            setConfirmDeleteId(null);
+                          }}
+                          className="px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-100 rounded"
+                        >
+                          Cancelar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            setConfirmDeleteId(null);
+                            onDelete(term.id);
+                          }}
+                          className="px-2 py-1 text-[11px] font-semibold text-white bg-rose-600 hover:bg-rose-700 rounded"
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                    ) : (
                     <button
                       type="button"
                       onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
-                        if (window.confirm(`Excluir "${term.term}" do glossário do time?`)) {
-                          onDelete(term.id);
-                        }
+                        setConfirmDeleteId(term.id);
                       }}
                       title="Excluir"
                       className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
+                    )}
                     <button
                       onClick={() => onSelect(term)}
                       title="Ver detalhes"

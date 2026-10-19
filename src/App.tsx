@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
 import { listsEqual, loadPendingState, loadSharedTerms, persistTerms, reconcilePending, savePendingTerms, takeSharedWithLocalIntent } from './utils/storage';
+import { applyFavoriteState, toggleFavoriteId } from './utils/favorites';
 import { getWriteToken } from './utils/publish';
 import { isTeamUnlocked } from './utils/teamAccess';
 import { DEPARTMENTS } from './data/defaultTerms';
@@ -85,10 +86,11 @@ export default function App() {
         pending?.terms ?? null,
         pending?.deletedIds ?? [],
       );
+      const withFavorites = applyFavoriteState(visible);
       setSharedTerms(shared);
-      setTerms(visible);
+      setTerms(withFavorites);
       sharedTermsRef.current = shared;
-      termsRef.current = visible;
+      termsRef.current = withFavorites;
       if (pending?.deletedIds.length) {
         pending.deletedIds.forEach((id) => deletedIdsRef.current.add(id));
       }
@@ -131,8 +133,9 @@ export default function App() {
         setSharedTerms(shared);
         sharedTermsRef.current = shared;
         if (!persistInFlightRef.current) {
-          setTerms(visible);
-          termsRef.current = visible;
+          const withFavorites = applyFavoriteState(visible);
+          setTerms(withFavorites);
+          termsRef.current = withFavorites;
         }
         if (pending && listsEqual(visible, shared)) {
           savePendingTerms(null);
@@ -181,11 +184,13 @@ export default function App() {
 
       const localChanged = !listsEqual(snapshot, termsRef.current);
       if (localChanged) {
-        const latest = reconcilePending(
-          merged,
-          termsRef.current,
-          [...deletedIdsRef.current],
-          previousShared,
+        const latest = applyFavoriteState(
+          reconcilePending(
+            merged,
+            termsRef.current,
+            [...deletedIdsRef.current],
+            previousShared,
+          ),
         );
         setTerms(latest);
         termsRef.current = latest;
@@ -195,8 +200,9 @@ export default function App() {
       }
 
       deleted.forEach((id) => deletedIdsRef.current.delete(id));
-      setTerms(merged);
-      termsRef.current = merged;
+      const withFavorites = applyFavoriteState(merged);
+      setTerms(withFavorites);
+      termsRef.current = withFavorites;
       savePendingTerms(null);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Não foi possível salvar.';
@@ -256,17 +262,14 @@ export default function App() {
   };
 
   const handleToggleFavorite = (id: string) => {
-    const updated = termsRef.current.map((t) => {
-      if (t.id === id) {
-        return { ...t, isFavorite: !t.isFavorite };
-      }
-      return t;
-    });
-    updateTermsAndPersist(updated);
+    toggleFavoriteId(id);
+    const updated = applyFavoriteState(termsRef.current);
+    setTerms(updated);
+    termsRef.current = updated;
     if (selectedTermForDetail && selectedTermForDetail.id === id) {
       setSelectedTermForDetail({
         ...selectedTermForDetail,
-        isFavorite: !selectedTermForDetail.isFavorite,
+        isFavorite: updated.find((term) => term.id === id)?.isFavorite ?? false,
       });
     }
   };
@@ -557,7 +560,7 @@ export default function App() {
                         setIsFormOpen(true);
                       });
                     }}
-                    onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
+                    onToggleFavorite={handleToggleFavorite}
                     onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
                   />
                 ))}
@@ -572,7 +575,7 @@ export default function App() {
                     setIsFormOpen(true);
                   });
                 }}
-                onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
+                onToggleFavorite={handleToggleFavorite}
                 onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
               />
             )}
@@ -621,7 +624,7 @@ export default function App() {
           });
         }}
         onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
-        onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
+        onToggleFavorite={handleToggleFavorite}
       />
 
       {/* Add / Edit Form Modal */}

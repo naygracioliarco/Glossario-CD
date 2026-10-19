@@ -24,7 +24,6 @@ const MERGE_FIELDS: (keyof GlossaryTerm)[] = [
   'tip',
   'pronunciation',
   'tags',
-  'isFavorite',
 ];
 
 function valuesEqual(left: unknown, right: unknown): boolean {
