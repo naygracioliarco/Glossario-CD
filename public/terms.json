@@ -1,5 +1,53 @@
 [
   {
+    "id": "term-1792415171142-ilwafj",
+    "term": "PO",
+    "expansion": "Plano de Obras",
+    "definition": "Plano de Obras",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:06:11.142Z"
+  },
+  {
+    "id": "term-1792415187184-7auju3",
+    "term": "EC",
+    "expansion": "Edição de Conteúdo",
+    "definition": "Edição de Conteúdo",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:06:27.184Z"
+  },
+  {
+    "id": "term-1792415209314-2960hu",
+    "term": "CQ",
+    "expansion": "Controle de Qualidade",
+    "definition": "Controle de Qualidade",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:06:49.314Z"
+  },
+  {
+    "id": "term-1792415225802-hylrfw",
+    "term": "CQPI",
+    "expansion": "Controle de Qualidade Pré-Impressão",
+    "definition": "Controle de Qualidade Pré-Impressão",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:07:05.802Z"
+  },
+  {
     "id": "term-1792415111456-xzpo6w",
     "term": "GOCD",
     "expansion": "Gestão e Operação do Conteúdo Digital",
