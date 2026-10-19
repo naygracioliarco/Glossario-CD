@@ -79,12 +79,7 @@ export function reconcilePending(
     (term) => !sharedIds.has(term.id) && !seedIds.has(term.id),
   );
 
-  const merged = shared.map((term) => {
-    const local = pending.find((item) => item.id === term.id);
-    return local ?? term;
-  });
-
-  return [...unpublishedAdds, ...merged];
+  return [...unpublishedAdds, ...shared];
 }
 
 export async function persistTerms(
