@@ -1,5 +1,41 @@
 [
   {
+    "id": "term-1792415111456-xzpo6w",
+    "term": "GOCD",
+    "expansion": "Gestão e Operação do Conteúdo Digital",
+    "definition": "Gestão e Operação do Conteúdo Digital",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:05:11.456Z"
+  },
+  {
+    "id": "term-1792415126979-f48lht",
+    "term": "GTCD",
+    "expansion": "Gestão e Transformação do Conteúdo Digital",
+    "definition": "Gestão e Transformação do Conteúdo Digital",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:05:26.979Z"
+  },
+  {
+    "id": "term-1792415140340-o767je",
+    "term": "GTPC",
+    "expansion": "Gestão e Transformação da Produção de Conteúdo",
+    "definition": "Gestão e Transformação da Produção de Conteúdo",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:05:54.653Z"
+  },
+  {
     "id": "term-1792415036350-xa1qhj",
     "term": "EM",
     "expansion": "Ensino Médio",
