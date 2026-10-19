@@ -1,41 +1,72 @@
 import { GlossaryTerm } from '../types';
 
 export const GLOSSARY_REPO = 'naygracioliarco/Glossario-CD';
-export const TOKEN_SETUP_URL =
-  'https://github.com/settings/personal-access-tokens/new';
-
-const TOKEN_KEY = 'glossary_github_token';
 const FILE_PATH = 'public/terms.json';
 
-export function getGithubToken(): string {
-  try {
-    return localStorage.getItem(TOKEN_KEY)?.trim() || '';
-  } catch {
-    return '';
+export function getWriteToken(): string {
+  return (import.meta.env.VITE_GLOSSARY_WRITE_TOKEN as string | undefined)?.trim() || '';
+}
+
+export function mergeSharedTerms(
+  remote: GlossaryTerm[],
+  local: GlossaryTerm[],
+  previousShared: GlossaryTerm[],
+): GlossaryTerm[] {
+  const previousIds = new Set(previousShared.map((term) => term.id));
+  const localIds = new Set(local.map((term) => term.id));
+
+  const merged = remote.filter((term) => {
+    const wasKnown = previousIds.has(term.id);
+    const stillLocal = localIds.has(term.id);
+    return !wasKnown || stillLocal;
+  });
+
+  for (const term of local) {
+    const index = merged.findIndex((item) => item.id === term.id);
+    if (index >= 0) {
+      merged[index] = term;
+    } else {
+      merged.unshift(term);
+    }
   }
+
+  return merged;
 }
 
-export function hasGithubToken(): boolean {
-  return getGithubToken().length > 0;
-}
-
-export function saveGithubToken(token: string): void {
-  const value = token.trim();
-  if (!value) {
-    clearGithubToken();
-    return;
+export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm[]> {
+  const [owner, repo] = GLOSSARY_REPO.split('/');
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
-  localStorage.setItem(TOKEN_KEY, value);
-}
 
-export function clearGithubToken(): void {
-  localStorage.removeItem(TOKEN_KEY);
+  const response = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}?ref=main`,
+    {headers},
+  );
+  if (!response.ok) {
+    throw new Error('Não consegui ler o glossário compartilhado.');
+  }
+
+  const payload = (await response.json()) as {content?: string};
+  if (!payload.content) {
+    throw new Error('O arquivo compartilhado está vazio.');
+  }
+
+  const parsed = JSON.parse(decodeBase64Utf8(payload.content));
+  if (!Array.isArray(parsed)) {
+    throw new Error('O glossário compartilhado está em um formato inválido.');
+  }
+  return parsed;
 }
 
 export async function publishTermsToGithub(terms: GlossaryTerm[], token: string): Promise<void> {
   const authToken = token.trim();
   if (!authToken) {
-    throw new Error('Informe o token para publicar neste site.');
+    throw new Error('A publicação compartilhada ainda não foi configurada.');
   }
 
   const [owner, repo] = GLOSSARY_REPO.split('/');
@@ -48,7 +79,7 @@ export async function publishTermsToGithub(terms: GlossaryTerm[], token: string)
 
   const currentResponse = await fetch(`${apiUrl}?ref=main`, {headers: requestHeaders});
   if (currentResponse.status === 401 || currentResponse.status === 403) {
-    throw new Error('Token inválido ou sem permissão neste repositório.');
+    throw new Error('Sem permissão para publicar o glossário compartilhado.');
   }
   if (!currentResponse.ok) {
     throw new Error('Não consegui ler o glossário compartilhado.');
@@ -59,7 +90,6 @@ export async function publishTermsToGithub(terms: GlossaryTerm[], token: string)
     throw new Error('Não encontrei a versão atual do glossário.');
   }
 
-  const fileContent = `${JSON.stringify(terms, null, 2)}\n`;
   const updateResponse = await fetch(apiUrl, {
     method: 'PUT',
     headers: {
@@ -68,15 +98,12 @@ export async function publishTermsToGithub(terms: GlossaryTerm[], token: string)
     },
     body: JSON.stringify({
       message: 'chore: atualizar glossário compartilhado',
-      content: encodeUtf8ToBase64(fileContent),
+      content: encodeUtf8ToBase64(`${JSON.stringify(terms, null, 2)}\n`),
       sha: current.sha,
       branch: 'main',
     }),
   });
 
-  if (updateResponse.status === 401 || updateResponse.status === 403) {
-    throw new Error('Token inválido ou sem permissão para publicar.');
-  }
   if (!updateResponse.ok) {
     const details = (await updateResponse.json().catch(() => null)) as {message?: string} | null;
     throw new Error(details?.message || 'Não foi possível publicar o glossário.');
@@ -90,4 +117,10 @@ function encodeUtf8ToBase64(text: string): string {
     binary += String.fromCharCode(byte);
   });
   return btoa(binary);
+}
+
+function decodeBase64Utf8(value: string): string {
+  const binary = atob(value.replace(/\n/g, ''));
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
 }

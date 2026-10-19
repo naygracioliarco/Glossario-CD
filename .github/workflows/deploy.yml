@@ -38,6 +38,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_GLOSSARY_WRITE_TOKEN: ${{ secrets.GLOSSARY_WRITE_TOKEN }}
+          VITE_TEAM_PASSWORD: ${{ secrets.GLOSSARY_TEAM_PASSWORD }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

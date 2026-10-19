@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
 import { listsEqual, loadPendingTerms, loadSharedTerms, persistTerms, savePendingTerms } from './utils/storage';
-import { publishTermsToGithub } from './utils/publish';
+import { isTeamUnlocked } from './utils/teamAccess';
 import { DEPARTMENTS } from './data/defaultTerms';
 import { Header } from './components/Header';
 import { TermCard } from './components/TermCard';
@@ -28,15 +28,12 @@ import { ManageDataModal } from './components/ManageDataModal';
 import { OnboardingQuiz } from './components/OnboardingQuiz';
 import { AlphabetFilter } from './components/AlphabetFilter';
 import { OnboardingGuideBanner } from './components/OnboardingGuideBanner';
-import { PublishBanner } from './components/PublishBanner';
-import { PublishConfirmModal } from './components/PublishConfirmModal';
+import { TeamPasswordModal } from './components/TeamPasswordModal';
 
 export default function App() {
   const [terms, setTerms] = useState<GlossaryTerm[]>([]);
   const [sharedTerms, setSharedTerms] = useState<GlossaryTerm[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasPending, setHasPending] = useState(false);
-  const [isPublishing, setIsPublishing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('todos');
   const [selectedLetter, setSelectedLetter] = useState<string>('todos');
@@ -49,8 +46,8 @@ export default function App() {
   const [termToEdit, setTermToEdit] = useState<GlossaryTerm | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isManageOpen, setIsManageOpen] = useState(false);
-  const [isPublishOpen, setIsPublishOpen] = useState(false);
-  const [publishError, setPublishError] = useState<string | null>(null);
+  const [isTeamGateOpen, setIsTeamGateOpen] = useState(false);
+  const [pendingEditorAction, setPendingEditorAction] = useState<(() => void) | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -71,11 +68,9 @@ export default function App() {
       const pending = loadPendingTerms();
       if (pending && !listsEqual(pending, shared)) {
         setTerms(pending);
-        setHasPending(true);
       } else {
         savePendingTerms(null);
         setTerms(shared);
-        setHasPending(false);
       }
       setIsLoading(false);
     };
@@ -86,50 +81,51 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isFormOpen || isManageOpen) {
+      return;
+    }
+
+    const timer = window.setInterval(async () => {
+      try {
+        const shared = await loadSharedTerms();
+        setSharedTerms((currentShared) => {
+          if (listsEqual(currentShared, shared)) {
+            return currentShared;
+          }
+          setTerms(shared);
+          savePendingTerms(null);
+          return shared;
+        });
+      } catch {
+        // keep the current list if a refresh fails
+      }
+    }, 45000);
+
+    return () => window.clearInterval(timer);
+  }, [isFormOpen, isManageOpen]);
+
+  const runAsEditor = (action: () => void) => {
+    if (isTeamUnlocked()) {
+      action();
+      return;
+    }
+    setPendingEditorAction(() => action);
+    setIsTeamGateOpen(true);
+  };
+
   const updateTermsAndPersist = (newTerms: GlossaryTerm[]) => {
     setTerms(newTerms);
-    void persistTerms(newTerms)
-      .then((mode) => {
-        if (mode === 'shared') {
-          setSharedTerms(newTerms);
-          setHasPending(false);
-          return;
-        }
-        setHasPending(!listsEqual(newTerms, sharedTerms));
+    void persistTerms(newTerms, sharedTerms)
+      .then((merged) => {
+        setTerms(merged);
+        setSharedTerms(merged);
+        savePendingTerms(null);
       })
-      .catch(() => {
-        showToast('Não foi possível salvar. Tente de novo.');
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : 'Não foi possível salvar.';
+        showToast(message);
       });
-  };
-
-  const handlePublishShared = () => {
-    setPublishError(null);
-    setIsPublishOpen(true);
-  };
-
-  const handleConfirmPublish = async (token: string) => {
-    setIsPublishing(true);
-    setPublishError(null);
-    try {
-      await publishTermsToGithub(terms, token);
-      savePendingTerms(null);
-      setSharedTerms(terms);
-      setHasPending(false);
-      setIsPublishOpen(false);
-      showToast('Publicado! Em cerca de 1 minuto o time inteiro vê as novas siglas.');
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Não foi possível publicar.';
-      setPublishError(message);
-    } finally {
-      setIsPublishing(false);
-    }
-  };
-
-  const handleDiscardPending = () => {
-    savePendingTerms(null);
-    setTerms(sharedTerms);
-    setHasPending(false);
-    showToast('Alterações locais descartadas. O glossário voltou à versão compartilhada.');
   };
 
   // Term actions
@@ -139,10 +135,10 @@ export default function App() {
     if (existingIndex >= 0) {
       updated = [...terms];
       updated[existingIndex] = savedTerm;
-      showToast(`Sigla "${savedTerm.term}" atualizada!`);
+      showToast(`Sigla "${savedTerm.term}" atualizada para o time.`);
     } else {
       updated = [savedTerm, ...terms];
-      showToast(`Nova sigla "${savedTerm.term}" adicionada com sucesso!`);
+      showToast(`Nova sigla "${savedTerm.term}" publicada para o time.`);
     }
     updateTermsAndPersist(updated);
     if (selectedTermForDetail && selectedTermForDetail.id === savedTerm.id) {
@@ -155,7 +151,7 @@ export default function App() {
     const updated = terms.filter((t) => t.id !== id);
     updateTermsAndPersist(updated);
     if (termToDelete) {
-      showToast(`Sigla "${termToDelete.term}" excluída.`);
+      showToast(`Sigla "${termToDelete.term}" removida do glossário compartilhado.`);
     }
   };
 
@@ -251,10 +247,14 @@ export default function App() {
         currentView={viewMode}
         onViewChange={setViewMode}
         onOpenNewTerm={() => {
-          setTermToEdit(null);
-          setIsFormOpen(true);
+          runAsEditor(() => {
+            setTermToEdit(null);
+            setIsFormOpen(true);
+          });
         }}
-        onOpenManage={() => setIsManageOpen(true)}
+        onOpenManage={() => {
+          runAsEditor(() => setIsManageOpen(true));
+        }}
         totalTerms={terms.length}
       />
 
@@ -271,14 +271,6 @@ export default function App() {
           />
         ) : (
           <>
-            {hasPending && (
-              <PublishBanner
-                isPublishing={isPublishing}
-                onPublish={handlePublishShared}
-                onDiscard={handleDiscardPending}
-              />
-            )}
-
             {/* Guide banner for new employees */}
             <OnboardingGuideBanner />
 
@@ -440,8 +432,10 @@ export default function App() {
                   )}
                   <button
                     onClick={() => {
-                      setTermToEdit(null);
-                      setIsFormOpen(true);
+                      runAsEditor(() => {
+                        setTermToEdit(null);
+                        setIsFormOpen(true);
+                      });
                     }}
                     className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm"
                   >
@@ -458,10 +452,12 @@ export default function App() {
                     term={term}
                     onSelect={(t) => setSelectedTermForDetail(t)}
                     onEdit={(t) => {
-                      setTermToEdit(t);
-                      setIsFormOpen(true);
+                      runAsEditor(() => {
+                        setTermToEdit(t);
+                        setIsFormOpen(true);
+                      });
                     }}
-                    onToggleFavorite={handleToggleFavorite}
+                    onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
                   />
                 ))}
               </div>
@@ -470,10 +466,12 @@ export default function App() {
                 terms={filteredTerms}
                 onSelect={(t) => setSelectedTermForDetail(t)}
                 onEdit={(t) => {
-                  setTermToEdit(t);
-                  setIsFormOpen(true);
+                  runAsEditor(() => {
+                    setTermToEdit(t);
+                    setIsFormOpen(true);
+                  });
                 }}
-                onToggleFavorite={handleToggleFavorite}
+                onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
               />
             )}
           </>
@@ -488,7 +486,7 @@ export default function App() {
           </p>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => setIsManageOpen(true)}
+              onClick={() => runAsEditor(() => setIsManageOpen(true))}
               className="text-slate-600 hover:text-indigo-600 transition-colors font-medium"
             >
               Exportar CSV / Importar da Minha Empresa
@@ -496,8 +494,10 @@ export default function App() {
             <span>·</span>
             <button
               onClick={() => {
-                setTermToEdit(null);
-                setIsFormOpen(true);
+                runAsEditor(() => {
+                  setTermToEdit(null);
+                  setIsFormOpen(true);
+                });
               }}
               className="text-slate-600 hover:text-indigo-600 transition-colors font-medium"
             >
@@ -512,12 +512,14 @@ export default function App() {
         term={selectedTermForDetail}
         onClose={() => setSelectedTermForDetail(null)}
         onEdit={(term) => {
-          setSelectedTermForDetail(null);
-          setTermToEdit(term);
-          setIsFormOpen(true);
+          runAsEditor(() => {
+            setSelectedTermForDetail(null);
+            setTermToEdit(term);
+            setIsFormOpen(true);
+          });
         }}
-        onDelete={handleDeleteTerm}
-        onToggleFavorite={handleToggleFavorite}
+        onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
+        onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
       />
 
       {/* Add / Edit Form Modal */}
@@ -541,19 +543,17 @@ export default function App() {
         }}
       />
 
-      <PublishConfirmModal
-        isOpen={isPublishOpen}
-        termCount={terms.length}
-        isPublishing={isPublishing}
-        errorMessage={publishError}
+      <TeamPasswordModal
+        isOpen={isTeamGateOpen}
         onClose={() => {
-          if (!isPublishing) {
-            setIsPublishOpen(false);
-            setPublishError(null);
-          }
+          setIsTeamGateOpen(false);
+          setPendingEditorAction(null);
         }}
-        onConfirm={(token) => {
-          void handleConfirmPublish(token);
+        onUnlocked={() => {
+          setIsTeamGateOpen(false);
+          const action = pendingEditorAction;
+          setPendingEditorAction(null);
+          action?.();
         }}
       />
 

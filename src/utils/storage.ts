@@ -1,5 +1,6 @@
 import { GlossaryTerm } from '../types';
 import { INITIAL_TERMS } from '../data/defaultTerms';
+import { fetchTermsFromGithub, getWriteToken, mergeSharedTerms, publishTermsToGithub } from './publish';
 
 const PENDING_KEY = 'company_glossary_pending_v1';
 const LEGACY_LOCAL_KEY = 'company_glossary_terms_v1';
@@ -9,6 +10,15 @@ export function sharedTermsUrl(): string {
 }
 
 export async function loadSharedTerms(): Promise<GlossaryTerm[]> {
+  const token = getWriteToken();
+  if (token) {
+    try {
+      return await fetchTermsFromGithub(token);
+    } catch (err) {
+      console.error('Erro ao carregar o glossário no GitHub:', err);
+    }
+  }
+
   try {
     const response = await fetch(`${sharedTermsUrl()}?t=${Date.now()}`, {cache: 'no-store'});
     if (!response.ok) {
@@ -54,7 +64,10 @@ export function listsEqual(left: GlossaryTerm[], right: GlossaryTerm[]): boolean
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
-export async function persistTerms(terms: GlossaryTerm[]): Promise<'shared' | 'pending'> {
+export async function persistTerms(
+  terms: GlossaryTerm[],
+  previousShared: GlossaryTerm[] = terms,
+): Promise<GlossaryTerm[]> {
   if (import.meta.env.DEV) {
     const response = await fetch('/__glossary/terms', {
       method: 'PUT',
@@ -64,12 +77,23 @@ export async function persistTerms(terms: GlossaryTerm[]): Promise<'shared' | 'p
     if (!response.ok) {
       throw new Error('Falha ao salvar o glossário no arquivo compartilhado');
     }
-    savePendingTerms(null);
-    return 'shared';
   }
 
-  savePendingTerms(terms);
-  return 'pending';
+  const token = getWriteToken();
+  if (!token) {
+    if (import.meta.env.DEV) {
+      savePendingTerms(null);
+      return terms;
+    }
+    savePendingTerms(terms);
+    throw new Error('A publicação compartilhada ainda não foi configurada.');
+  }
+
+  const remote = await fetchTermsFromGithub(token);
+  const merged = mergeSharedTerms(remote, terms, previousShared);
+  await publishTermsToGithub(merged, token);
+  savePendingTerms(null);
+  return merged;
 }
 
 export function resetToDefaults(): GlossaryTerm[] {
