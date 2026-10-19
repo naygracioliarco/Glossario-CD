@@ -448,23 +448,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-sdr-bdr",
-    "term": "SDR & BDR",
-    "expansion": "Sales Development Representative & Business Development Representative",
-    "definition": "Profissionais de pré-vendas responsáveis por prospectar, qualificar leads e agendar reuniões com os executivos de contas (Closers).",
-    "example": "Nosso time de SDRs gerou mais de 120 oportunidades qualificadas nesta semana.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "SDR geralmente foca em leads inbound (que vieram pelo site); BDR foca em prospecção outbound (ativa no mercado).",
-    "pronunciation": "S-D-R e B-D-R",
-    "tags": [
-      "vendas",
-      "prospecção",
-      "leads"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-seo",
     "term": "SEO",
     "expansion": "Search Engine Optimization (Otimização para Mecanismos de Busca)",
