@@ -15,7 +15,7 @@
       "trimestre",
       "planejamento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-sla",
@@ -33,7 +33,7 @@
       "suporte",
       "qualidade"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-kpi",
@@ -68,7 +68,7 @@
       "agilidade",
       "validação"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-pr",
@@ -242,24 +242,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-cac",
-    "term": "CAC",
-    "expansion": "Custo de Aquisição de Clientes (Customer Acquisition Cost)",
-    "definition": "Total investido em marketing e vendas dividido pelo número de novos clientes conquistados no período.",
-    "example": "Reduzimos nosso CAC em 18% otimizando as campanhas e as conversões do site.",
-    "department": "Negócios & Vendas",
-    "importance": "essencial",
-    "tip": "A regra de ouro em negócios saudáveis: o LTV (valor gerado) deve ser consideravelmente maior que o CAC (ao menos 3x).",
-    "pronunciation": "C-A-C (Cáqui ou Cê-A-Cê)",
-    "tags": [
-      "vendas",
-      "marketing",
-      "finanças",
-      "crescimento"
-    ],
-    "isFavorite": true
-  },
-  {
     "id": "term-ltv",
     "term": "LTV",
     "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
@@ -291,7 +273,7 @@
       "retenção",
       "saúde-do-negócio"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-mrr-arr",
@@ -445,7 +427,7 @@
       "liderança",
       "alinhamento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-onboarding",
@@ -463,7 +445,7 @@
       "rh",
       "treinamento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-pdi",
