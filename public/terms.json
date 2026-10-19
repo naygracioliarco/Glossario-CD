@@ -1,15 +1,39 @@
 [
   {
-    "id": "term-1792412971240-vyphzg",
-    "term": "NEL",
-    "expansion": "Núcleo de Excelência de Linguagem",
-    "definition": "O NEL normalmente é responsável pela revisão.",
+    "id": "term-1792413095322-jj83gz",
+    "term": "ADV",
+    "expansion": "Audiovisual",
+    "definition": "Time responsável por toda a parte Audiovisual da empresa.",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:31:35.322Z"
+  },
+  {
+    "id": "term-1792413150182-d3cwt0",
+    "term": "LD",
+    "expansion": "Livro digital",
+    "definition": "São os Livros Digitais produzidos pela equipe de Interações Digitais. Esses livros são adaptados para o digital, sendo consumíveis e acessíveis.",
     "example": "",
     "department": "Geral & Comunicação",
     "importance": "frequente",
     "tags": [],
     "isFavorite": false,
-    "updatedAt": "2026-10-19T12:29:31.240Z"
+    "updatedAt": "2026-10-19T12:32:30.182Z"
+  },
+  {
+    "id": "term-1792412971240-vyphzg",
+    "term": "NEL",
+    "expansion": "Núcleo de Excelência de Linguagem",
+    "definition": "O NEL normalmente é responsável pela revisão.",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:30:54.667Z"
   },
   {
     "id": "term-1792413038332-qtyo37",
