@@ -310,23 +310,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-ebitda",
-    "term": "EBITDA",
-    "expansion": "Lucros Antes de Juros, Impostos, Depreciação e Amortização (LAJIDA)",
-    "definition": "Indicador financeiro que mede a capacidade de geração de caixa puramente operacional da empresa, sem distorções financeiras ou fiscais.",
-    "example": "A margem EBITDA da empresa cresceu 4 pontos percentuais no último balanço.",
-    "department": "Financeiro & Operações",
-    "importance": "essencial",
-    "tip": "Muito acompanhado por investidores e conselhos de administração para avaliar a saúde da operação.",
-    "pronunciation": "Ebítida ou I-B-I-T-D-A",
-    "tags": [
-      "finanças",
-      "lucratividade",
-      "gestão"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-opex-capex",
     "term": "OPEX & CAPEX",
     "expansion": "Operational Expenditure & Capital Expenditure",
