@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, Copy, Check, Pencil, MessageSquareQuote, Volume2, ArrowUpRight } from 'lucide-react';
+import { Star, Copy, Check, Pencil, Trash2, MessageSquareQuote, Volume2, ArrowUpRight } from 'lucide-react';
 import { GlossaryTerm } from '../types';
 
 interface TermCardProps {
@@ -7,6 +7,7 @@ interface TermCardProps {
   onSelect: (term: GlossaryTerm) => void;
   onEdit: (term: GlossaryTerm) => void;
   onToggleFavorite: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 export const TermCard: React.FC<TermCardProps> = ({
@@ -14,8 +15,10 @@ export const TermCard: React.FC<TermCardProps> = ({
   onSelect,
   onEdit,
   onToggleFavorite,
+  onDelete,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -73,6 +76,24 @@ export const TermCard: React.FC<TermCardProps> = ({
               className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors"
             >
               <Pencil className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => {
+                if (!confirmDelete) {
+                  setConfirmDelete(true);
+                  window.setTimeout(() => setConfirmDelete(false), 4000);
+                  return;
+                }
+                onDelete(term.id);
+              }}
+              title={confirmDelete ? 'Clique de novo para confirmar' : 'Excluir sigla'}
+              className={`p-1.5 rounded-md transition-colors ${
+                confirmDelete
+                  ? 'text-white bg-rose-600 hover:bg-rose-700'
+                  : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50'
+              }`}
+            >
+              <Trash2 className="w-4 h-4" />
             </button>
           </div>
         </div>

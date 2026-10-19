@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, Copy, Check, Pencil, ArrowUpRight } from 'lucide-react';
+import { Star, Copy, Check, Pencil, Trash2, ArrowUpRight } from 'lucide-react';
 import { GlossaryTerm } from '../types';
 
 interface TermTableProps {
@@ -7,6 +7,7 @@ interface TermTableProps {
   onSelect: (term: GlossaryTerm) => void;
   onEdit: (term: GlossaryTerm) => void;
   onToggleFavorite: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 export const TermTable: React.FC<TermTableProps> = ({
@@ -14,8 +15,10 @@ export const TermTable: React.FC<TermTableProps> = ({
   onSelect,
   onEdit,
   onToggleFavorite,
+  onDelete,
 }) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const handleCopy = (e: React.MouseEvent, term: GlossaryTerm) => {
     e.stopPropagation();
@@ -89,6 +92,26 @@ export const TermTable: React.FC<TermTableProps> = ({
                       className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors"
                     >
                       <Pencil className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (confirmDeleteId !== term.id) {
+                          setConfirmDeleteId(term.id);
+                          window.setTimeout(() => {
+                            setConfirmDeleteId((current) => (current === term.id ? null : current));
+                          }, 4000);
+                          return;
+                        }
+                        onDelete(term.id);
+                      }}
+                      title={confirmDeleteId === term.id ? 'Clique de novo para confirmar' : 'Excluir'}
+                      className={`p-1.5 rounded transition-colors ${
+                        confirmDeleteId === term.id
+                          ? 'text-white bg-rose-600 hover:bg-rose-700'
+                          : 'text-slate-400 hover:text-rose-600 hover:bg-rose-50'
+                      }`}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => onSelect(term)}

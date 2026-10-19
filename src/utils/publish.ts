@@ -11,23 +11,27 @@ export function mergeSharedTerms(
   remote: GlossaryTerm[],
   local: GlossaryTerm[],
   previousShared: GlossaryTerm[],
+  deletedIds: string[] = [],
 ): GlossaryTerm[] {
-  const previousIds = new Set(previousShared.map((term) => term.id));
+  const deleted = new Set(deletedIds);
   const localIds = new Set(local.map((term) => term.id));
+  const previousIds = new Set(previousShared.map((term) => term.id));
 
-  const merged = remote.filter((term) => {
-    const wasKnown = previousIds.has(term.id);
-    const stillLocal = localIds.has(term.id);
-    return !wasKnown || stillLocal;
-  });
-
-  for (const term of local) {
-    const index = merged.findIndex((item) => item.id === term.id);
-    if (index >= 0) {
-      merged[index] = term;
-    } else {
-      merged.unshift(term);
+  for (const term of previousShared) {
+    if (!localIds.has(term.id)) {
+      deleted.add(term.id);
     }
+  }
+
+  const merged = local.filter((term) => !deleted.has(term.id));
+  const mergedIds = new Set(merged.map((term) => term.id));
+
+  for (const term of remote) {
+    if (deleted.has(term.id) || mergedIds.has(term.id) || previousIds.has(term.id)) {
+      continue;
+    }
+    merged.push(term);
+    mergedIds.add(term.id);
   }
 
   return merged;
@@ -63,7 +67,11 @@ export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm
   return parsed;
 }
 
-export async function publishTermsToGithub(terms: GlossaryTerm[], token: string): Promise<void> {
+export async function publishTermsToGithub(
+  terms: GlossaryTerm[],
+  token: string,
+  attempt = 0,
+): Promise<void> {
   const authToken = token.trim();
   if (!authToken) {
     throw new Error('A publicação compartilhada ainda não foi configurada.');
@@ -103,6 +111,10 @@ export async function publishTermsToGithub(terms: GlossaryTerm[], token: string)
       branch: 'main',
     }),
   });
+
+  if (updateResponse.status === 409 && attempt < 2) {
+    return publishTermsToGithub(terms, token, attempt + 1);
+  }
 
   if (!updateResponse.ok) {
     const details = (await updateResponse.json().catch(() => null)) as {message?: string} | null;

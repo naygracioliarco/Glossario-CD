@@ -64,9 +64,33 @@ export function listsEqual(left: GlossaryTerm[], right: GlossaryTerm[]): boolean
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
+export function reconcilePending(
+  shared: GlossaryTerm[],
+  pending: GlossaryTerm[] | null,
+): GlossaryTerm[] {
+  if (!pending) {
+    return shared;
+  }
+
+  const sharedIds = new Set(shared.map((term) => term.id));
+  const seedIds = new Set(INITIAL_TERMS.map((term) => term.id));
+
+  const unpublishedAdds = pending.filter(
+    (term) => !sharedIds.has(term.id) && !seedIds.has(term.id),
+  );
+
+  const merged = shared.map((term) => {
+    const local = pending.find((item) => item.id === term.id);
+    return local ?? term;
+  });
+
+  return [...unpublishedAdds, ...merged];
+}
+
 export async function persistTerms(
   terms: GlossaryTerm[],
   previousShared: GlossaryTerm[] = terms,
+  deletedIds: string[] = [],
 ): Promise<GlossaryTerm[]> {
   if (import.meta.env.DEV) {
     const response = await fetch('/__glossary/terms', {
@@ -90,7 +114,7 @@ export async function persistTerms(
   }
 
   const remote = await fetchTermsFromGithub(token);
-  const merged = mergeSharedTerms(remote, terms, previousShared);
+  const merged = mergeSharedTerms(remote, terms, previousShared, deletedIds);
   await publishTermsToGithub(merged, token);
   savePendingTerms(null);
   return merged;

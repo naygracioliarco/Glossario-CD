@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Search, 
   X, 
@@ -16,7 +16,8 @@ import {
   Check
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
-import { listsEqual, loadPendingTerms, loadSharedTerms, persistTerms, savePendingTerms } from './utils/storage';
+import { listsEqual, loadPendingTerms, loadSharedTerms, persistTerms, reconcilePending, savePendingTerms } from './utils/storage';
+import { getWriteToken } from './utils/publish';
 import { isTeamUnlocked } from './utils/teamAccess';
 import { DEPARTMENTS } from './data/defaultTerms';
 import { Header } from './components/Header';
@@ -49,11 +50,24 @@ export default function App() {
   const [isTeamGateOpen, setIsTeamGateOpen] = useState(false);
   const [pendingEditorAction, setPendingEditorAction] = useState<(() => void) | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const sharedTermsRef = useRef<GlossaryTerm[]>([]);
+  const termsRef = useRef<GlossaryTerm[]>([]);
+  const persistInFlightRef = useRef(false);
+  const deletedIdsRef = useRef(new Set<string>());
+  const persistChainRef = useRef(Promise.resolve());
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
+
+  useEffect(() => {
+    sharedTermsRef.current = sharedTerms;
+  }, [sharedTerms]);
+
+  useEffect(() => {
+    termsRef.current = terms;
+  }, [terms]);
 
   useEffect(() => {
     let cancelled = false;
@@ -64,14 +78,19 @@ export default function App() {
         return;
       }
 
-      setSharedTerms(shared);
       const pending = loadPendingTerms();
-      if (pending && !listsEqual(pending, shared)) {
-        setTerms(pending);
-      } else {
+      const visible = reconcilePending(shared, pending);
+      setSharedTerms(shared);
+      setTerms(visible);
+      sharedTermsRef.current = shared;
+      termsRef.current = visible;
+
+      if (pending && listsEqual(visible, shared)) {
         savePendingTerms(null);
-        setTerms(shared);
+      } else if (pending && getWriteToken()) {
+        savePendingTerms(visible);
       }
+
       setIsLoading(false);
     };
 
@@ -87,16 +106,21 @@ export default function App() {
     }
 
     const timer = window.setInterval(async () => {
+      if (persistInFlightRef.current) {
+        return;
+      }
+
       try {
         const shared = await loadSharedTerms();
-        setSharedTerms((currentShared) => {
-          if (listsEqual(currentShared, shared)) {
-            return currentShared;
-          }
-          setTerms(shared);
+        const pending = loadPendingTerms();
+        const visible = reconcilePending(shared, pending);
+        setSharedTerms(shared);
+        setTerms(visible);
+        sharedTermsRef.current = shared;
+        termsRef.current = visible;
+        if (pending && listsEqual(visible, shared)) {
           savePendingTerms(null);
-          return shared;
-        });
+        }
       } catch {
         // keep the current list if a refresh fails
       }
@@ -114,17 +138,34 @@ export default function App() {
     setIsTeamGateOpen(true);
   };
 
-  const updateTermsAndPersist = (newTerms: GlossaryTerm[]) => {
+  const updateTermsAndPersist = (newTerms: GlossaryTerm[], deletedIds: string[] = []) => {
     setTerms(newTerms);
-    void persistTerms(newTerms, sharedTerms)
-      .then((merged) => {
-        setTerms(merged);
-        setSharedTerms(merged);
-        savePendingTerms(null);
-      })
-      .catch((error) => {
-        const message = error instanceof Error ? error.message : 'Não foi possível salvar.';
-        showToast(message);
+    termsRef.current = newTerms;
+    deletedIds.forEach((id) => deletedIdsRef.current.add(id));
+    savePendingTerms(newTerms);
+
+    persistChainRef.current = persistChainRef.current
+      .catch(() => undefined)
+      .then(async () => {
+        persistInFlightRef.current = true;
+        try {
+          const merged = await persistTerms(
+            termsRef.current,
+            sharedTermsRef.current,
+            [...deletedIdsRef.current],
+          );
+          deletedIdsRef.current.clear();
+          setTerms(merged);
+          setSharedTerms(merged);
+          termsRef.current = merged;
+          sharedTermsRef.current = merged;
+          savePendingTerms(null);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : 'Não foi possível salvar.';
+          showToast(message);
+        } finally {
+          persistInFlightRef.current = false;
+        }
       });
   };
 
@@ -147,9 +188,12 @@ export default function App() {
   };
 
   const handleDeleteTerm = (id: string) => {
-    const termToDelete = terms.find((t) => t.id === id);
-    const updated = terms.filter((t) => t.id !== id);
-    updateTermsAndPersist(updated);
+    const termToDelete = termsRef.current.find((t) => t.id === id);
+    const updated = termsRef.current.filter((t) => t.id !== id);
+    if (selectedTermForDetail?.id === id) {
+      setSelectedTermForDetail(null);
+    }
+    updateTermsAndPersist(updated, [id]);
     if (termToDelete) {
       showToast(`Sigla "${termToDelete.term}" removida do glossário compartilhado.`);
     }
@@ -458,6 +502,7 @@ export default function App() {
                       });
                     }}
                     onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
+                    onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
                   />
                 ))}
               </div>
@@ -472,6 +517,7 @@ export default function App() {
                   });
                 }}
                 onToggleFavorite={(id) => runAsEditor(() => handleToggleFavorite(id))}
+                onDelete={(id) => runAsEditor(() => handleDeleteTerm(id))}
               />
             )}
           </>
