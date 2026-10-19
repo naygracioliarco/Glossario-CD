@@ -119,7 +119,7 @@ export const ManageDataModal: React.FC<ManageDataModalProps> = ({
               Personalizar com as Siglas da sua Empresa
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Exporte, importe planilhas do Excel ou gerencie os dados salvos
+              Exporte, importe planilhas ou atualize o glossário compartilhado do time
             </p>
           </div>
           <button

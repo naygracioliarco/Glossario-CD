@@ -16,7 +16,8 @@ import {
   Check
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
-import { loadTerms, saveTerms } from './utils/storage';
+import { listsEqual, loadPendingTerms, loadSharedTerms, persistTerms, savePendingTerms } from './utils/storage';
+import { openSharedPublishIssue } from './utils/publish';
 import { DEPARTMENTS } from './data/defaultTerms';
 import { Header } from './components/Header';
 import { TermCard } from './components/TermCard';
@@ -27,9 +28,14 @@ import { ManageDataModal } from './components/ManageDataModal';
 import { OnboardingQuiz } from './components/OnboardingQuiz';
 import { AlphabetFilter } from './components/AlphabetFilter';
 import { OnboardingGuideBanner } from './components/OnboardingGuideBanner';
+import { PublishBanner } from './components/PublishBanner';
 
 export default function App() {
-  const [terms, setTerms] = useState<GlossaryTerm[]>(() => loadTerms());
+  const [terms, setTerms] = useState<GlossaryTerm[]>([]);
+  const [sharedTerms, setSharedTerms] = useState<GlossaryTerm[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasPending, setHasPending] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('todos');
   const [selectedLetter, setSelectedLetter] = useState<string>('todos');
@@ -44,15 +50,89 @@ export default function App() {
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Sync to local storage
-  const updateTermsAndPersist = (newTerms: GlossaryTerm[]) => {
-    setTerms(newTerms);
-    saveTerms(newTerms);
-  };
-
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      const shared = await loadSharedTerms();
+      if (cancelled) {
+        return;
+      }
+
+      setSharedTerms(shared);
+      const pending = loadPendingTerms();
+      if (pending && !listsEqual(pending, shared)) {
+        setTerms(pending);
+        setHasPending(true);
+      } else {
+        savePendingTerms(null);
+        setTerms(shared);
+        setHasPending(false);
+      }
+      setIsLoading(false);
+    };
+
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const updateTermsAndPersist = (newTerms: GlossaryTerm[]) => {
+    setTerms(newTerms);
+    void persistTerms(newTerms)
+      .then((mode) => {
+        if (mode === 'shared') {
+          setSharedTerms(newTerms);
+          setHasPending(false);
+          return;
+        }
+        setHasPending(!listsEqual(newTerms, sharedTerms));
+      })
+      .catch(() => {
+        showToast('Não foi possível salvar. Tente de novo.');
+      });
+  };
+
+  const handlePublishShared = () => {
+    const result = openSharedPublishIssue(terms);
+    setIsPublishing(true);
+    showToast(
+      result === 'clipboard'
+        ? 'JSON copiado. Cole no GitHub (Ctrl+V) e clique em Submit new issue.'
+        : 'Confirme a publicação na aba do GitHub que acabou de abrir.',
+    );
+
+    const startedAt = Date.now();
+    const timer = window.setInterval(async () => {
+      const shared = await loadSharedTerms();
+      if (listsEqual(shared, terms)) {
+        window.clearInterval(timer);
+        setSharedTerms(shared);
+        savePendingTerms(null);
+        setHasPending(false);
+        setIsPublishing(false);
+        showToast('Glossário publicado! O time já pode ver as novas siglas.');
+        return;
+      }
+      if (Date.now() - startedAt > 180000) {
+        window.clearInterval(timer);
+        setIsPublishing(false);
+        showToast('Ainda não vimos a publicação. Confirme o issue no GitHub e aguarde o deploy.');
+      }
+    }, 5000);
+  };
+
+  const handleDiscardPending = () => {
+    savePendingTerms(null);
+    setTerms(sharedTerms);
+    setHasPending(false);
+    showToast('Alterações locais descartadas. O glossário voltou à versão compartilhada.');
   };
 
   // Term actions
@@ -183,13 +263,25 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {viewMode === 'quiz' ? (
+        {isLoading ? (
+          <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-sm text-slate-500">
+            Carregando o glossário compartilhado...
+          </div>
+        ) : viewMode === 'quiz' ? (
           <OnboardingQuiz
             terms={terms}
             onBackToGlossary={() => setViewMode('grid')}
           />
         ) : (
           <>
+            {hasPending && (
+              <PublishBanner
+                isPublishing={isPublishing}
+                onPublish={handlePublishShared}
+                onDiscard={handleDiscardPending}
+              />
+            )}
+
             {/* Guide banner for new employees */}
             <OnboardingGuideBanner />
 
@@ -395,7 +487,7 @@ export default function App() {
       <footer className="mt-auto border-t border-slate-200 bg-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            Glossário Corporativo para Onboarding e Desmistificação de Siglas.
+            Glossário compartilhado do time. As siglas publicadas aparecem para todo mundo.
           </p>
           <div className="flex items-center gap-4">
             <button

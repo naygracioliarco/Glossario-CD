@@ -1,0 +1,106 @@
+name: Publish shared glossary
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  publish:
+    if: >
+      contains(github.event.issue.title, 'Publicar glossário') ||
+      contains(join(github.event.issue.labels.*.name, ','), 'glossario')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update shared terms
+        id: glossary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const issue = context.payload.issue;
+            const { owner, repo } = context.repo;
+            const allowed = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+            const labels = (issue.labels || []).map((label) => label.name);
+            const canPublish =
+              allowed.includes(issue.author_association) || labels.includes('aprovado');
+
+            if (!canPublish) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: 'Essa contribuição ficou em revisão. Um admin precisa adicionar o rótulo `aprovado` para publicar no glossário compartilhado.'
+              });
+              return;
+            }
+
+            const body = issue.body || '';
+            const match = body.match(/<!-- glossary-action:(\w+) -->[\s\S]*?```json\s*([\s\S]*?)```/);
+            if (!match || !String(match[2]).trim()) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: 'Não encontrei o JSON do glossário. Cole o arquivo entre as marcas ```json e ``` e atualize o issue.'
+              });
+              return;
+            }
+
+            const action = match[1];
+            const payload = JSON.parse(match[2]);
+            const file = 'public/terms.json';
+            let terms = JSON.parse(fs.readFileSync(file, 'utf8'));
+
+            if (action === 'replace') {
+              if (!Array.isArray(payload)) {
+                throw new Error('A ação replace espera uma lista de siglas.');
+              }
+              terms = payload;
+            } else if (action === 'upsert') {
+              const index = terms.findIndex((term) => term.id === payload.id);
+              if (index >= 0) {
+                terms[index] = payload;
+              } else {
+                terms.unshift(payload);
+              }
+            } else if (action === 'delete') {
+              terms = terms.filter((term) => term.id !== payload.id);
+            } else {
+              throw new Error(`Ação desconhecida: ${action}`);
+            }
+
+            fs.writeFileSync(file, `${JSON.stringify(terms, null, 2)}\n`);
+            core.setOutput('updated', 'true');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body: `Glossário atualizado com ${terms.length} siglas. O site público atualiza em cerca de 1 minuto.`
+            });
+            await github.rest.issues.update({
+              owner,
+              repo,
+              issue_number: issue.number,
+              state: 'closed'
+            });
+
+      - name: Commit shared glossary
+        if: steps.glossary.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/terms.json
+          if git diff --cached --quiet; then
+            echo "No glossary changes"
+            exit 0
+          fi
+          git commit -m "chore: atualizar glossário compartilhado"
+          git push

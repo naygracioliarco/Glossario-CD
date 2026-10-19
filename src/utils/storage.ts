@@ -1,36 +1,78 @@
 import { GlossaryTerm } from '../types';
 import { INITIAL_TERMS } from '../data/defaultTerms';
 
-const STORAGE_KEY = 'company_glossary_terms_v1';
+const PENDING_KEY = 'company_glossary_pending_v1';
+const LEGACY_LOCAL_KEY = 'company_glossary_terms_v1';
 
-export function loadTerms(): GlossaryTerm[] {
+export function sharedTermsUrl(): string {
+  return `${import.meta.env.BASE_URL}terms.json`;
+}
+
+export async function loadSharedTerms(): Promise<GlossaryTerm[]> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      saveTerms(INITIAL_TERMS);
+    const response = await fetch(`${sharedTermsUrl()}?t=${Date.now()}`, {cache: 'no-store'});
+    if (!response.ok) {
       return INITIAL_TERMS;
     }
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
+    const parsed = await response.json();
+    if (Array.isArray(parsed)) {
       return parsed;
     }
     return INITIAL_TERMS;
   } catch (err) {
-    console.error('Erro ao carregar dados do LocalStorage:', err);
+    console.error('Erro ao carregar o glossário compartilhado:', err);
     return INITIAL_TERMS;
   }
 }
 
-export function saveTerms(terms: GlossaryTerm[]): void {
+export function loadPendingTerms(): GlossaryTerm[] | null {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(terms));
-  } catch (err) {
-    console.error('Erro ao salvar termos no LocalStorage:', err);
+    const raw = localStorage.getItem(PENDING_KEY) || localStorage.getItem(LEGACY_LOCAL_KEY);
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
   }
 }
 
+export function savePendingTerms(terms: GlossaryTerm[] | null): void {
+  try {
+    if (terms == null) {
+      localStorage.removeItem(PENDING_KEY);
+      return;
+    }
+    localStorage.setItem(PENDING_KEY, JSON.stringify(terms));
+  } catch (err) {
+    console.error('Erro ao guardar alterações locais:', err);
+  }
+}
+
+export function listsEqual(left: GlossaryTerm[], right: GlossaryTerm[]): boolean {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+export async function persistTerms(terms: GlossaryTerm[]): Promise<'shared' | 'pending'> {
+  if (import.meta.env.DEV) {
+    const response = await fetch('/__glossary/terms', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(terms),
+    });
+    if (!response.ok) {
+      throw new Error('Falha ao salvar o glossário no arquivo compartilhado');
+    }
+    savePendingTerms(null);
+    return 'shared';
+  }
+
+  savePendingTerms(terms);
+  return 'pending';
+}
+
 export function resetToDefaults(): GlossaryTerm[] {
-  saveTerms(INITIAL_TERMS);
   return INITIAL_TERMS;
 }
 
@@ -46,27 +88,28 @@ export function exportToJSON(terms: GlossaryTerm[]): void {
 
 export function exportToCSV(terms: GlossaryTerm[]): void {
   const headers = ['Sigla', 'Significado Completo', 'Definição', 'Exemplo de Uso', 'Departamento', 'Importância', 'Dica', 'Como Falar'];
-  
+
   const escapeCSV = (str: string | undefined) => {
     if (!str) return '""';
     const clean = str.replace(/"/g, '""');
     return `"${clean}"`;
   };
 
-  const rows = terms.map(t => [
-    escapeCSV(t.term),
-    escapeCSV(t.expansion),
-    escapeCSV(t.definition),
-    escapeCSV(t.example),
-    escapeCSV(t.department),
-    escapeCSV(t.importance),
-    escapeCSV(t.tip || ''),
-    escapeCSV(t.pronunciation || ''),
-  ].join(';'));
+  const rows = terms.map((t) =>
+    [
+      escapeCSV(t.term),
+      escapeCSV(t.expansion),
+      escapeCSV(t.definition),
+      escapeCSV(t.example),
+      escapeCSV(t.department),
+      escapeCSV(t.importance),
+      escapeCSV(t.tip || ''),
+      escapeCSV(t.pronunciation || ''),
+    ].join(';'),
+  );
 
-  // UTF-8 BOM so Excel opens Portuguese accented characters properly
   const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\r\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
@@ -78,18 +121,15 @@ export function exportToCSV(terms: GlossaryTerm[]): void {
 }
 
 export function parseCSVInput(csvText: string): Partial<GlossaryTerm>[] {
-  const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
+  const lines = csvText.split(/\r?\n/).filter((line) => line.trim().length > 0);
   if (lines.length <= 1) return [];
 
-  // Determine separator: ';' or ','
   const headerLine = lines[0];
   const separator = headerLine.includes(';') ? ';' : ',';
-
   const newTerms: Partial<GlossaryTerm>[] = [];
 
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
-    // Simple CSV parser for quoted or unquoted values
     const parts: string[] = [];
     let insideQuotes = false;
     let currentPart = '';
@@ -112,7 +152,7 @@ export function parseCSVInput(csvText: string): Partial<GlossaryTerm>[] {
       const expansion = parts[1] ? parts[1].trim() : '';
       const definition = parts[2] ? parts[2].trim() : 'Definição a preencher.';
       const example = parts[3] ? parts[3].trim() : '';
-      const department = parts[4] ? (parts[4].trim() as any) : 'Geral & Comunicação';
+      const department = parts[4] ? (parts[4].trim() as GlossaryTerm['department']) : 'Geral & Comunicação';
 
       newTerms.push({
         id: `term-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,

@@ -61,9 +61,9 @@ export const OnboardingGuideBanner: React.FC = () => {
               3
             </div>
             <div>
-              <strong className="text-slate-800 block mb-0.5">Preencha com as da sua empresa</strong>
+              <strong className="text-slate-800 block mb-0.5">Cadastre e publique para o time</strong>
               <p className="text-slate-600 leading-relaxed">
-                Use o botão <strong>+ Nova Sigla</strong> ou importe uma planilha em <em>Personalizar</em> para cadastrar siglas internas.
+                Use <strong>+ Nova Sigla</strong> e depois <em>Publicar para todos</em>. O glossário é compartilhado: todo mundo vê a mesma lista.
               </p>
             </div>
           </div>
