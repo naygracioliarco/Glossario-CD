@@ -71,24 +71,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-pr",
-    "term": "PR",
-    "expansion": "Pull Request",
-    "definition": "Solicitação feita por um desenvolvedor para que outros colegas revisem o código alterado antes de integrá-lo ao sistema principal.",
-    "example": "Abri o PR da tela de pagamentos, alguém do time pode fazer o code review?",
-    "department": "Tecnologia & Produto",
-    "importance": "essencial",
-    "tip": "No contexto de marketing, PR também pode significar Public Relations (Relações Públicas).",
-    "pronunciation": "P-R (ou Pê-Érre)",
-    "tags": [
-      "código",
-      "desenvolvimento",
-      "review",
-      "github"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-api",
     "term": "API",
     "expansion": "Application Programming Interface (Interface de Programação de Aplicações)",
