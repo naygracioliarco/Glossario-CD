@@ -1,5 +1,17 @@
 [
   {
+    "id": "term-1792415239397-xxw0xa",
+    "term": "GT",
+    "expansion": "Grupo de trabalho",
+    "definition": "Grupo de trabalho",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:07:19.397Z"
+  },
+  {
     "id": "term-1792415171142-ilwafj",
     "term": "PO",
     "expansion": "Plano de Obras",
@@ -581,7 +593,7 @@
       "finanças",
       "crescimento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-ltv",
@@ -854,23 +866,6 @@
       "benefícios",
       "cultura",
       "marca-empregadora"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-asap",
-    "term": "ASAP",
-    "expansion": "As Soon As Possible (O mais rápido possível)",
-    "definition": "Expressão usada em mensagens para indicar que algo precisa ser feito com urgência ou prioridade máxima.",
-    "example": "Pode me enviar o link da apresentação ASAP? A reunião já começou.",
-    "department": "Geral & Comunicação",
-    "importance": "essencial",
-    "tip": "Use com moderação: se tudo for urgente/ASAP, nada é realmente priorizado.",
-    "pronunciation": "Ei-Sép ou A-S-A-P",
-    "tags": [
-      "urgência",
-      "comunicação",
-      "slack"
     ],
     "isFavorite": false
   },
