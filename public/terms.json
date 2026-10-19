@@ -1,5 +1,22 @@
 [
   {
+    "id": "term-ltv",
+    "term": "LTV",
+    "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
+    "definition": "Estimativa de quanto dinheiro um cliente gera em receita para a empresa durante todo o tempo em que permanece como cliente.",
+    "example": "Clientes que utilizam nossos módulos avançados têm um LTV 40% superior à média.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "Quanto maior a retenção e menor o cancelamento, maior será o LTV.",
+    "pronunciation": "L-T-V (Éle-Tê-Vê)",
+    "tags": [
+      "vendas",
+      "retenção",
+      "faturamento"
+    ],
+    "isFavorite": false
+  },
+  {
     "id": "term-1792415239397-xxw0xa",
     "term": "GT",
     "expansion": "Grupo de trabalho",
@@ -1004,23 +1021,6 @@
       "ensino-médio",
       "currículo",
       "escolas"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-sdr-bdr",
-    "term": "SDR & BDR",
-    "expansion": "Sales Development Representative & Business Development Representative",
-    "definition": "Profissionais de pré-vendas responsáveis por prospectar, qualificar leads e agendar reuniões com os executivos de contas (Closers).",
-    "example": "Nosso time de SDRs gerou mais de 120 oportunidades qualificadas nesta semana.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "SDR geralmente foca em leads inbound (que vieram pelo site); BDR foca em prospecção outbound (ativa no mercado).",
-    "pronunciation": "S-D-R e B-D-R",
-    "tags": [
-      "vendas",
-      "prospecção",
-      "leads"
     ],
     "isFavorite": false
   },
