@@ -16,7 +16,7 @@ import {
   Check
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
-import { listsEqual, loadPendingState, loadSharedTerms, loadTombstones, persistTerms, pruneTombstones, reconcilePending, savePendingTerms, saveTombstones, takeSharedWithLocalIntent } from './utils/storage';
+import { listsEqual, loadPendingState, loadSharedTerms, loadTombstones, persistTerms, reconcilePending, savePendingTerms, saveTombstones, takeSharedWithLocalIntent } from './utils/storage';
 import { applyFavoriteState, toggleFavoriteId } from './utils/favorites';
 import { getWriteToken } from './utils/publish';
 import { isTeamUnlocked } from './utils/teamAccess';
@@ -74,10 +74,7 @@ export default function App() {
     pendingTerms: GlossaryTerm[] | null,
     extraDeleted: string[] = [],
   ) => {
-    const remoteIds = new Set(shared.map((term) => term.id));
-    const extraStillPresent = extraDeleted.filter((id) => remoteIds.has(id));
-    const remaining = pruneTombstones(shared);
-    const deletedIds = syncDeletedIds([...remaining, ...extraStillPresent]);
+    const deletedIds = syncDeletedIds([...currentDeletedIds(), ...extraDeleted]);
     const localIntent =
       pendingTerms ??
       (termsRef.current.length > 0 ? termsRef.current : shared);
@@ -88,16 +85,14 @@ export default function App() {
       sharedTermsRef.current.length ? sharedTermsRef.current : shared,
     );
     const withFavorites = applyFavoriteState(visible);
-    setSharedTerms(shared);
-    sharedTermsRef.current = shared;
+    const remoteWithoutDeleted = shared.filter((term) => !deletedIds.includes(term.id));
+    setSharedTerms(remoteWithoutDeleted);
+    sharedTermsRef.current = remoteWithoutDeleted;
     setTerms(withFavorites);
     termsRef.current = withFavorites;
-    if (deletedIds.length > 0 || !listsEqual(visible, shared)) {
-      savePendingTerms(visible, deletedIds);
-    } else {
-      savePendingTerms(null);
-    }
-    return {deletedIds, visible};
+    savePendingTerms(visible, deletedIds);
+    const stillOnRemote = deletedIds.filter((id) => shared.some((term) => term.id === id));
+    return {deletedIds, visible, stillOnRemote};
   };
 
   const showToast = (msg: string) => {
@@ -117,18 +112,27 @@ export default function App() {
     let cancelled = false;
 
     const load = async () => {
-      const shared = await loadSharedTerms();
+      let shared: GlossaryTerm[];
+      try {
+        shared = await loadSharedTerms();
+      } catch (error) {
+        console.error('Erro ao carregar o glossário no GitHub:', error);
+        shared = [];
+      }
       if (cancelled) {
         return;
       }
 
       const pending = loadPendingState();
-      const {deletedIds} = applySharedSnapshot(
+      if (shared.length === 0 && pending?.terms?.length) {
+        shared = pending.terms;
+      }
+      const {stillOnRemote} = applySharedSnapshot(
         shared,
         pending?.terms ?? null,
         pending?.deletedIds ?? [],
       );
-      if (deletedIds.length > 0 && getWriteToken()) {
+      if (stillOnRemote.length > 0 && getWriteToken()) {
         schedulePersist();
       }
 
@@ -153,16 +157,16 @@ export default function App() {
 
       try {
         const pending = loadPendingState();
-        const shared = await loadSharedTerms();
+        const shared = await loadSharedTerms({allowStaticFallback: false});
         if (persistInFlightRef.current || persistTimerRef.current || persistDirtyRef.current) {
           return;
         }
-        const {deletedIds} = applySharedSnapshot(
+        const {stillOnRemote} = applySharedSnapshot(
           shared,
           pending?.terms ?? termsRef.current,
           pending?.deletedIds ?? [],
         );
-        if (deletedIds.length > 0 && getWriteToken()) {
+        if (stillOnRemote.length > 0 && getWriteToken()) {
           schedulePersist();
         }
       } catch {
@@ -206,40 +210,20 @@ export default function App() {
     const previousShared = sharedTermsRef.current;
     try {
       const merged = await persistTerms(snapshot, previousShared, deleted);
-      const confirmed = await loadSharedTerms().catch(() => merged);
-      const remaining = pruneTombstones(confirmed);
-      const stillDeleted = remaining.filter((id) => confirmed.some((term) => term.id === id));
-      syncDeletedIds(stillDeleted);
-
-      const localChanged = !listsEqual(snapshot, termsRef.current);
-      if (localChanged) {
-        const latest = applyFavoriteState(
-          reconcilePending(
-            confirmed,
-            termsRef.current,
-            currentDeletedIds(),
-            previousShared,
-          ),
-        );
-        setSharedTerms(confirmed);
-        sharedTermsRef.current = confirmed;
-        setTerms(latest);
-        termsRef.current = latest;
-        savePendingTerms(latest, currentDeletedIds());
-        persistDirtyRef.current = true;
-        return;
-      }
-
-      const visible = takeSharedWithLocalIntent(confirmed, merged, stillDeleted);
+      const hidden = currentDeletedIds();
+      const latestLocal = termsRef.current;
+      const localChanged = !listsEqual(snapshot, latestLocal);
+      const visible = localChanged
+        ? reconcilePending(merged, latestLocal, hidden, previousShared)
+        : takeSharedWithLocalIntent(merged, snapshot, hidden);
       const withFavorites = applyFavoriteState(visible);
-      setSharedTerms(confirmed);
-      sharedTermsRef.current = confirmed;
+      setSharedTerms(merged);
+      sharedTermsRef.current = merged;
       setTerms(withFavorites);
       termsRef.current = withFavorites;
-      if (stillDeleted.length > 0) {
-        savePendingTerms(visible, stillDeleted);
-      } else {
-        savePendingTerms(null);
+      savePendingTerms(visible, hidden);
+      if (localChanged) {
+        persistDirtyRef.current = true;
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Não foi possível salvar.';

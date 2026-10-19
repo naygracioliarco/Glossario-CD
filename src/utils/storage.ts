@@ -24,16 +24,7 @@ export function sharedTermsUrl(): string {
   return `${import.meta.env.BASE_URL}terms.json`;
 }
 
-export async function loadSharedTerms(): Promise<GlossaryTerm[]> {
-  const token = getWriteToken();
-  if (token) {
-    try {
-      return await fetchTermsFromGithub(token);
-    } catch (err) {
-      console.error('Erro ao carregar o glossário no GitHub:', err);
-    }
-  }
-
+async function loadStaticTerms(): Promise<GlossaryTerm[]> {
   try {
     const response = await fetch(`${sharedTermsUrl()}?t=${Date.now()}`, {cache: 'no-store'});
     if (!response.ok) {
@@ -48,6 +39,17 @@ export async function loadSharedTerms(): Promise<GlossaryTerm[]> {
     console.error('Erro ao carregar o glossário compartilhado:', err);
     return INITIAL_TERMS;
   }
+}
+
+export async function loadSharedTerms(options?: {allowStaticFallback?: boolean}): Promise<GlossaryTerm[]> {
+  const token = getWriteToken();
+  if (token) {
+    return await fetchTermsFromGithub(token);
+  }
+  if (options?.allowStaticFallback === false) {
+    throw new Error('Não consegui ler o glossário compartilhado.');
+  }
+  return loadStaticTerms();
 }
 
 export function loadPendingState(): PendingGlossaryState | null {
@@ -96,13 +98,6 @@ export function saveTombstones(ids: string[]): void {
     return;
   }
   localStorage.setItem(TOMBSTONE_KEY, JSON.stringify(unique));
-}
-
-export function pruneTombstones(remote: GlossaryTerm[]): string[] {
-  const remoteIds = new Set(remote.map((term) => term.id));
-  const remaining = loadTombstones().filter((id) => remoteIds.has(id));
-  saveTombstones(remaining);
-  return remaining;
 }
 
 export function savePendingTerms(terms: GlossaryTerm[] | null, deletedIds: string[] = []): void {
