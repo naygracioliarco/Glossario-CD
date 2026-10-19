@@ -242,24 +242,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-mrr-arr",
-    "term": "MRR & ARR",
-    "expansion": "Monthly Recurring Revenue & Annual Recurring Revenue",
-    "definition": "Receita Recorrente Mensal (MRR) e Receita Recorrente Anual (ARR) geradas por contratos ou planos de assinatura.",
-    "example": "Nossa meta é ultrapassar R$ 500 mil em MRR antes do final do segundo semestre.",
-    "department": "Negócios & Vendas",
-    "importance": "essencial",
-    "tip": "Essas duas métricas são os pilares de avaliação para qualquer empresa baseada em SaaS ou mensalidades.",
-    "pronunciation": "M-R-R e A-R-R",
-    "tags": [
-      "receita",
-      "faturamento",
-      "assinatura",
-      "finanças"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-b2b-b2c",
     "term": "B2B & B2C",
     "expansion": "Business to Business & Business to Consumer",
