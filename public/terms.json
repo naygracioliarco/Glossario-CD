@@ -1,5 +1,29 @@
 [
   {
+    "id": "term-1792414981884-ks1rp5",
+    "term": "AI (EFAI)",
+    "expansion": "Anos iniciais",
+    "definition": "Anos iniciais - 1º a 5º ano (Ensino Fundamental Anos Iniciais)",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:03:01.884Z"
+  },
+  {
+    "id": "term-1792415019229-x21jjx",
+    "term": "AF (EFAF)",
+    "expansion": "Anos finais",
+    "definition": "Anos finais - 6º a 9º ano (Ensino Fundamental Anos Finais)",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:03:39.229Z"
+  },
+  {
     "id": "term-1792413518444-6tf8kh",
     "term": "VA",
     "expansion": "Videoaulas",
