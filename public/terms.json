@@ -15,7 +15,7 @@
       "trimestre",
       "planejamento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-sla",
@@ -33,7 +33,7 @@
       "suporte",
       "qualidade"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-kpi",
@@ -68,7 +68,7 @@
       "agilidade",
       "validação"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-pr",
@@ -291,7 +291,7 @@
       "retenção",
       "saúde-do-negócio"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-mrr-arr",
