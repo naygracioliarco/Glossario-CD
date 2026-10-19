@@ -465,23 +465,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-kickoff",
-    "term": "Kick-off",
-    "expansion": "Reunião Inicial de Alinhamento e Lançamento de Projeto",
-    "definition": "Primeira reunião formal realizada no início de um novo projeto, parceria ou ciclo para alinhar objetivos, responsabilidades e cronograma com todos os envolvidos.",
-    "example": "Teremos o kick-off do novo sistema de matrículas na próxima terça-feira.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Uma boa oportunidade para tirar todas as dúvidas e entender quem é quem no projeto.",
-    "pronunciation": "Quique-ófe",
-    "tags": [
-      "reunião",
-      "lançamento",
-      "projetos"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-bncc",
     "term": "BNCC",
     "expansion": "Base Nacional Comum Curricular",
