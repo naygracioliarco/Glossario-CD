@@ -14,19 +14,68 @@ export class GlossaryConflictError extends Error {
   }
 }
 
+const MERGE_FIELDS: (keyof GlossaryTerm)[] = [
+  'term',
+  'expansion',
+  'definition',
+  'example',
+  'department',
+  'importance',
+  'tip',
+  'pronunciation',
+  'tags',
+  'isFavorite',
+];
+
+function valuesEqual(left: unknown, right: unknown): boolean {
+  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+}
+
+function mergeTermFields(
+  remote: GlossaryTerm,
+  local: GlossaryTerm,
+  previous?: GlossaryTerm,
+): GlossaryTerm {
+  if (!previous) {
+    return remote;
+  }
+
+  const merged: GlossaryTerm = {...remote};
+  for (const field of MERGE_FIELDS) {
+    if (!valuesEqual(local[field], previous[field])) {
+      Object.assign(merged, {[field]: local[field]});
+    }
+  }
+  return merged;
+}
+
 export function mergeSharedTerms(
   remote: GlossaryTerm[],
   local: GlossaryTerm[],
   previousShared: GlossaryTerm[],
   deletedIds: string[] = [],
 ): GlossaryTerm[] {
-  const remoteIds = new Set(remote.map((term) => term.id));
+  const remoteById = new Map(remote.map((term) => [term.id, term]));
+  const previousById = new Map(previousShared.map((term) => [term.id, term]));
   const colleagueDeleted = previousShared
     .map((term) => term.id)
-    .filter((id) => !remoteIds.has(id));
+    .filter((id) => !remoteById.has(id));
   const deleted = new Set([...deletedIds, ...colleagueDeleted]);
-  const merged = local.filter((term) => !deleted.has(term.id));
-  const mergedIds = new Set(merged.map((term) => term.id));
+  const merged: GlossaryTerm[] = [];
+  const mergedIds = new Set<string>();
+
+  for (const localTerm of local) {
+    if (deleted.has(localTerm.id)) {
+      continue;
+    }
+    const remoteTerm = remoteById.get(localTerm.id);
+    if (!remoteTerm) {
+      merged.push(localTerm);
+    } else {
+      merged.push(mergeTermFields(remoteTerm, localTerm, previousById.get(localTerm.id)));
+    }
+    mergedIds.add(localTerm.id);
+  }
 
   for (const term of remote) {
     if (deleted.has(term.id) || mergedIds.has(term.id)) {

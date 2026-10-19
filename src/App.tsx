@@ -16,7 +16,7 @@ import {
   Check
 } from 'lucide-react';
 import { GlossaryTerm, Department, ViewMode } from './types';
-import { listsEqual, loadPendingState, loadSharedTerms, persistTerms, reconcilePending, savePendingTerms } from './utils/storage';
+import { listsEqual, loadPendingState, loadSharedTerms, persistTerms, reconcilePending, savePendingTerms, takeSharedWithLocalIntent } from './utils/storage';
 import { getWriteToken } from './utils/publish';
 import { isTeamUnlocked } from './utils/teamAccess';
 import { DEPARTMENTS } from './data/defaultTerms';
@@ -80,11 +80,10 @@ export default function App() {
       }
 
       const pending = loadPendingState();
-      const visible = reconcilePending(
+      const visible = takeSharedWithLocalIntent(
         shared,
         pending?.terms ?? null,
         pending?.deletedIds ?? [],
-        shared,
       );
       setSharedTerms(shared);
       setTerms(visible);

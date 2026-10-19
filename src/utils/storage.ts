@@ -94,6 +94,19 @@ export function listsEqual(left: GlossaryTerm[], right: GlossaryTerm[]): boolean
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
+export function takeSharedWithLocalIntent(
+  shared: GlossaryTerm[],
+  pending: GlossaryTerm[] | null,
+  deletedIds: string[] = [],
+): GlossaryTerm[] {
+  const deleted = new Set(deletedIds);
+  const sharedIds = new Set(shared.map((term) => term.id));
+  const unpublishedAdds = (pending ?? []).filter(
+    (term) => !sharedIds.has(term.id) && !deleted.has(term.id),
+  );
+  return [...unpublishedAdds, ...shared.filter((term) => !deleted.has(term.id))];
+}
+
 export function reconcilePending(
   shared: GlossaryTerm[],
   pending: GlossaryTerm[] | null,
