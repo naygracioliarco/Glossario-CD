@@ -1,15 +1,39 @@
 [
   {
-    "id": "term-1792413209571-2h9dgk",
-    "term": "RA",
-    "expansion": "Realidade Aumentada",
-    "definition": "RA é produzida pela equipe de Interações Digitais. É uma tecnologia normalmente aplicada nas capas dos livros para que os alunos possuam uma experiência digital.",
+    "id": "term-1792413235810-oji1pa",
+    "term": "CD",
+    "expansion": "Conteúdo Digital",
+    "definition": "Engloba todas as frentes do Digital",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:33:55.810Z"
+  },
+  {
+    "id": "term-1792413285440-h7nibn",
+    "term": "QE",
+    "expansion": "Qualidade Editorial",
+    "definition": "Qualidade Editorial",
     "example": "",
     "department": "Geral & Comunicação",
     "importance": "frequente",
     "tags": [],
     "isFavorite": false,
-    "updatedAt": "2026-10-19T12:33:29.571Z"
+    "updatedAt": "2026-10-19T12:34:45.440Z"
+  },
+  {
+    "id": "term-1792413209571-2h9dgk",
+    "term": "RA",
+    "expansion": "Realidade Aumentada",
+    "definition": "RA é produzida pela equipe de Interações Digitais. É uma tecnologia normalmente aplicada nas capas dos livros para que os alunos possuam uma experiência digital.",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:34:21.240Z"
   },
   {
     "id": "term-1792413095322-jj83gz",
@@ -29,11 +53,11 @@
     "expansion": "Livro digital",
     "definition": "São os Livros Digitais produzidos pela equipe de Interações Digitais. Esses livros são adaptados para o digital, sendo consumíveis e acessíveis.",
     "example": "",
-    "department": "Geral & Comunicação",
+    "department": "Tecnologia & Produto",
     "importance": "frequente",
     "tags": [],
     "isFavorite": false,
-    "updatedAt": "2026-10-19T12:32:30.182Z"
+    "updatedAt": "2026-10-19T12:34:04.254Z"
   },
   {
     "id": "term-1792412971240-vyphzg",
