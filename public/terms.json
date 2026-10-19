@@ -344,23 +344,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-dre",
-    "term": "DRE",
-    "expansion": "Demonstração do Resultado do Exercício",
-    "definition": "Relatório contábil consolidado que sintetiza receitas, custos, despesas e impostos para evidenciar se houve lucro ou prejuízo no período.",
-    "example": "Na reunião de resultados, o diretor financeiro apresentará a DRE do último trimestre.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Costuma ser analisada mensalmente e anualmente pelos gestores para controle de despesas.",
-    "pronunciation": "D-R-E",
-    "tags": [
-      "finanças",
-      "relatório",
-      "contabilidade"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-pipeline",
     "term": "Pipeline",
     "expansion": "Funil de Vendas / Fluxo de Oportunidades",
