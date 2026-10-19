@@ -585,7 +585,10 @@ export default function App() {
         terms={terms}
         onClose={() => setIsManageOpen(false)}
         onUpdateTerms={(newTerms) => {
-          updateTermsAndPersist(newTerms);
+          const deletedIds = termsRef.current
+            .filter((term) => !newTerms.some((item) => item.id === term.id))
+            .map((term) => term.id);
+          updateTermsAndPersist(newTerms, deletedIds);
         }}
       />
 

@@ -10,24 +10,15 @@ export function getWriteToken(): string {
 export function mergeSharedTerms(
   remote: GlossaryTerm[],
   local: GlossaryTerm[],
-  previousShared: GlossaryTerm[],
+  _previousShared: GlossaryTerm[],
   deletedIds: string[] = [],
 ): GlossaryTerm[] {
   const deleted = new Set(deletedIds);
-  const localIds = new Set(local.map((term) => term.id));
-  const previousIds = new Set(previousShared.map((term) => term.id));
-
-  for (const term of previousShared) {
-    if (!localIds.has(term.id)) {
-      deleted.add(term.id);
-    }
-  }
-
   const merged = local.filter((term) => !deleted.has(term.id));
   const mergedIds = new Set(merged.map((term) => term.id));
 
   for (const term of remote) {
-    if (deleted.has(term.id) || mergedIds.has(term.id) || previousIds.has(term.id)) {
+    if (deleted.has(term.id) || mergedIds.has(term.id)) {
       continue;
     }
     merged.push(term);
