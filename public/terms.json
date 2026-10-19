@@ -448,23 +448,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-evp",
-    "term": "EVP",
-    "expansion": "Employee Value Proposition (Proposta de Valor ao Empregado)",
-    "definition": "Conjunto de benefícios, cultura, valores e oportunidades de desenvolvimento que a empresa oferece aos seus colaboradores em troca do seu talento.",
-    "example": "Nosso EVP inclui horários flexíveis, auxílio educação e programa de apoio à saúde mental.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "especifico",
-    "tip": "É o que atrai e retém os melhores profissionais no mercado.",
-    "pronunciation": "E-V-P",
-    "tags": [
-      "benefícios",
-      "cultura",
-      "marca-empregadora"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-fyi",
     "term": "FYI",
     "expansion": "For Your Information (Para Seu Conhecimento)",
