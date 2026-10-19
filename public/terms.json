@@ -275,23 +275,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-opex-capex",
-    "term": "OPEX & CAPEX",
-    "expansion": "Operational Expenditure & Capital Expenditure",
-    "definition": "OPEX: despesas contínuas de operação (salários, nuvem, aluguel). CAPEX: investimentos em bens de capital e ativos duradouros (compra de servidores, reformas).",
-    "example": "Migrar nossos servidores para nuvem reduziu nosso CAPEX e transformou o custo em OPEX mensal.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Decisões entre OPEX e CAPEX afetam diretamente a tributação e o fluxo de caixa da empresa.",
-    "pronunciation": "Ópequis e Képequis",
-    "tags": [
-      "contabilidade",
-      "custos",
-      "orçamento"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-pipeline",
     "term": "Pipeline",
     "expansion": "Funil de Vendas / Fluxo de Oportunidades",
