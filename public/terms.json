@@ -1,5 +1,29 @@
 [
   {
+    "id": "term-1792412971240-vyphzg",
+    "term": "NEL",
+    "expansion": "Núcleo de Excelência de Linguagem",
+    "definition": "O NEL normalmente é responsável pela revisão.",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:29:31.240Z"
+  },
+  {
+    "id": "term-1792413038332-qtyo37",
+    "term": "ID",
+    "expansion": "Interações Digitais",
+    "definition": "Time responsável por atuar nas frentes de ODAs, Livros Digitais, RAs e toda a parte digital pedagógica.",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:30:38.332Z"
+  },
+  {
     "id": "term-1792412931964-ketkth",
     "term": "NDE",
     "expansion": "Núcleo de Design Educacional",
