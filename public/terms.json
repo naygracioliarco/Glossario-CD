@@ -1007,23 +1007,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-cta",
-    "term": "CTA",
-    "expansion": "Call to Action (Chamada para Ação)",
-    "definition": "Botão, link ou texto com instrução direta ao usuário para dar o próximo passo (ex: \"Fale com um consultor\", \"Baixe o e-book\").",
-    "example": "Vamos mudar a cor e o texto do CTA principal da landing page para aumentar os cliques.",
-    "department": "Marketing",
-    "importance": "frequente",
-    "tip": "Um bom CTA deve ser claro, direto e evidenciar o benefício.",
-    "pronunciation": "C-T-A (Cê-Tê-A)",
-    "tags": [
-      "conversão",
-      "marketing",
-      "design"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-raci",
     "term": "Matriz RACI",
     "expansion": "Responsible, Accountable, Consulted, Informed",
