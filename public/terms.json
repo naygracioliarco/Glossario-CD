@@ -242,23 +242,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-ltv",
-    "term": "LTV",
-    "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
-    "definition": "Estimativa de quanto dinheiro um cliente gera em receita para a empresa durante todo o tempo em que permanece como cliente.",
-    "example": "Clientes que utilizam nossos módulos avançados têm um LTV 40% superior à média.",
-    "department": "Negócios & Vendas",
-    "importance": "essencial",
-    "tip": "Quanto maior a retenção e menor o cancelamento, maior será o LTV.",
-    "pronunciation": "L-T-V (Éle-Tê-Vê)",
-    "tags": [
-      "vendas",
-      "retenção",
-      "faturamento"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-mrr-arr",
     "term": "MRR & ARR",
     "expansion": "Monthly Recurring Revenue & Annual Recurring Revenue",
