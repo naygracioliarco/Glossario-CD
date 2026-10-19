@@ -1,5 +1,17 @@
 [
   {
+    "id": "term-1792412644275-n1vxme",
+    "term": "OMD",
+    "expansion": "Observações Materiais Didáticos - Reclamações",
+    "definition": "São apontamentos que as escolas, professores, pais e alunos fazem sobre o material, que são avaliados pelo time tanto do impresso quanto do digital para dar um retorno, e se for o caso, fazer o ajuste solicitado.",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:24:04.275Z"
+  },
+  {
     "id": "term-okr",
     "term": "OKR",
     "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
