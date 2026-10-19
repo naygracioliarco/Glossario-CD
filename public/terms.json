@@ -1,5 +1,41 @@
 [
   {
+    "id": "term-1792413518444-6tf8kh",
+    "term": "VA",
+    "expansion": "Videoaulas",
+    "definition": "Videoaulas - Audiovisual",
+    "example": "",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:38:38.444Z"
+  },
+  {
+    "id": "term-1792413551810-3nr9id",
+    "term": "SELO",
+    "expansion": "Selo",
+    "definition": "Se refere à marca dentro da Arco",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T12:39:11.810Z"
+  },
+  {
+    "id": "term-1792414953265-1r41j4",
+    "term": "EI",
+    "expansion": "Educação Infantil",
+    "definition": "Educação Infantil - De G1 a G5",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:02:33.265Z"
+  },
+  {
     "id": "term-1792413497851-huc0t8",
     "term": "VR",
     "expansion": "Vídeorresolução",
