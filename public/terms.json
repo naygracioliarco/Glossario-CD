@@ -1,5 +1,39 @@
 [
   {
+    "id": "term-sdr-bdr",
+    "term": "SDR & BDR",
+    "expansion": "Sales Development Representative & Business Development Representative",
+    "definition": "Profissionais de pré-vendas responsáveis por prospectar, qualificar leads e agendar reuniões com os executivos de contas (Closers).",
+    "example": "Nosso time de SDRs gerou mais de 120 oportunidades qualificadas nesta semana.",
+    "department": "Negócios & Vendas",
+    "importance": "frequente",
+    "tip": "SDR geralmente foca em leads inbound (que vieram pelo site); BDR foca em prospecção outbound (ativa no mercado).",
+    "pronunciation": "S-D-R e B-D-R",
+    "tags": [
+      "vendas",
+      "prospecção",
+      "leads"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-asap",
+    "term": "ASAP",
+    "expansion": "As Soon As Possible (O mais rápido possível)",
+    "definition": "Expressão usada em mensagens para indicar que algo precisa ser feito com urgência ou prioridade máxima.",
+    "example": "Pode me enviar o link da apresentação ASAP? A reunião já começou.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Use com moderação: se tudo for urgente/ASAP, nada é realmente priorizado.",
+    "pronunciation": "Ei-Sép ou A-S-A-P",
+    "tags": [
+      "urgência",
+      "comunicação",
+      "slack"
+    ],
+    "isFavorite": false
+  },
+  {
     "id": "term-ltv",
     "term": "LTV",
     "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
@@ -15,342 +49,6 @@
       "faturamento"
     ],
     "isFavorite": false
-  },
-  {
-    "id": "term-1792415239397-xxw0xa",
-    "term": "GT",
-    "expansion": "Grupo de trabalho",
-    "definition": "Grupo de trabalho",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:07:19.397Z"
-  },
-  {
-    "id": "term-1792415171142-ilwafj",
-    "term": "PO",
-    "expansion": "Plano de Obras",
-    "definition": "Plano de Obras",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:06:11.142Z"
-  },
-  {
-    "id": "term-1792415187184-7auju3",
-    "term": "EC",
-    "expansion": "Edição de Conteúdo",
-    "definition": "Edição de Conteúdo",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:06:27.184Z"
-  },
-  {
-    "id": "term-1792415209314-2960hu",
-    "term": "CQ",
-    "expansion": "Controle de Qualidade",
-    "definition": "Controle de Qualidade",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:06:49.314Z"
-  },
-  {
-    "id": "term-1792415225802-hylrfw",
-    "term": "CQPI",
-    "expansion": "Controle de Qualidade Pré-Impressão",
-    "definition": "Controle de Qualidade Pré-Impressão",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:07:05.802Z"
-  },
-  {
-    "id": "term-1792415111456-xzpo6w",
-    "term": "GOCD",
-    "expansion": "Gestão e Operação do Conteúdo Digital",
-    "definition": "Gestão e Operação do Conteúdo Digital",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:05:11.456Z"
-  },
-  {
-    "id": "term-1792415126979-f48lht",
-    "term": "GTCD",
-    "expansion": "Gestão e Transformação do Conteúdo Digital",
-    "definition": "Gestão e Transformação do Conteúdo Digital",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:05:26.979Z"
-  },
-  {
-    "id": "term-1792415140340-o767je",
-    "term": "GTPC",
-    "expansion": "Gestão e Transformação da Produção de Conteúdo",
-    "definition": "Gestão e Transformação da Produção de Conteúdo",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:05:54.653Z"
-  },
-  {
-    "id": "term-1792415036350-xa1qhj",
-    "term": "EM",
-    "expansion": "Ensino Médio",
-    "definition": "Ensino Médio - 1ª a 3ª série",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:03:56.350Z"
-  },
-  {
-    "id": "term-1792415055655-ofwtv5",
-    "term": "PV",
-    "expansion": "Pré Vestibular",
-    "definition": "Pré Vestibular - [SAS apenas] Material para cursinho",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:04:15.655Z"
-  },
-  {
-    "id": "term-1792415084933-rs3ceu",
-    "term": "PU",
-    "expansion": "Pré Universitário",
-    "definition": "Pré Universitário - [SAS apenas] 3ª série normal",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:04:44.933Z"
-  },
-  {
-    "id": "term-1792414981884-ks1rp5",
-    "term": "AI (EFAI)",
-    "expansion": "Anos iniciais",
-    "definition": "Anos iniciais - 1º a 5º ano (Ensino Fundamental Anos Iniciais)",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:03:01.884Z"
-  },
-  {
-    "id": "term-1792415019229-x21jjx",
-    "term": "AF (EFAF)",
-    "expansion": "Anos finais",
-    "definition": "Anos finais - 6º a 9º ano (Ensino Fundamental Anos Finais)",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:03:39.229Z"
-  },
-  {
-    "id": "term-1792413518444-6tf8kh",
-    "term": "VA",
-    "expansion": "Videoaulas",
-    "definition": "Videoaulas - Audiovisual",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:38:38.444Z"
-  },
-  {
-    "id": "term-1792413551810-3nr9id",
-    "term": "SELO",
-    "expansion": "Selo",
-    "definition": "Se refere à marca dentro da Arco",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:39:11.810Z"
-  },
-  {
-    "id": "term-1792414953265-1r41j4",
-    "term": "EI",
-    "expansion": "Educação Infantil",
-    "definition": "Educação Infantil - De G1 a G5",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T13:02:33.265Z"
-  },
-  {
-    "id": "term-1792413497851-huc0t8",
-    "term": "VR",
-    "expansion": "Vídeorresolução",
-    "definition": "Vídeorresolução - Audiovisual",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:38:17.851Z"
-  },
-  {
-    "id": "term-1792413235810-oji1pa",
-    "term": "CD",
-    "expansion": "Conteúdo Digital",
-    "definition": "Engloba todas as frentes do Digital",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:33:55.810Z"
-  },
-  {
-    "id": "term-1792413285440-h7nibn",
-    "term": "QE",
-    "expansion": "Qualidade Editorial",
-    "definition": "Qualidade Editorial",
-    "example": "",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:34:45.440Z"
-  },
-  {
-    "id": "term-1792413209571-2h9dgk",
-    "term": "RA",
-    "expansion": "Realidade Aumentada",
-    "definition": "RA é produzida pela equipe de Interações Digitais. É uma tecnologia normalmente aplicada nas capas dos livros para que os alunos possuam uma experiência digital.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:34:21.240Z"
-  },
-  {
-    "id": "term-1792413095322-jj83gz",
-    "term": "ADV",
-    "expansion": "Audiovisual",
-    "definition": "Time responsável por toda a parte Audiovisual da empresa.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:31:35.322Z"
-  },
-  {
-    "id": "term-1792413150182-d3cwt0",
-    "term": "LD",
-    "expansion": "Livro digital",
-    "definition": "São os Livros Digitais produzidos pela equipe de Interações Digitais. Esses livros são adaptados para o digital, sendo consumíveis e acessíveis.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:34:04.254Z"
-  },
-  {
-    "id": "term-1792412971240-vyphzg",
-    "term": "NEL",
-    "expansion": "Núcleo de Excelência de Linguagem",
-    "definition": "O NEL normalmente é responsável pela revisão.",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:30:54.667Z"
-  },
-  {
-    "id": "term-1792413038332-qtyo37",
-    "term": "ID",
-    "expansion": "Interações Digitais",
-    "definition": "Time responsável por atuar nas frentes de ODAs, Livros Digitais, RAs e toda a parte digital pedagógica.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:30:38.332Z"
-  },
-  {
-    "id": "term-1792412931964-ketkth",
-    "term": "NDE",
-    "expansion": "Núcleo de Design Educacional",
-    "definition": "Núcleo de Design Educacional",
-    "example": "",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:28:51.964Z"
-  },
-  {
-    "id": "term-1792412798180-60zd2e",
-    "term": "ODA",
-    "expansion": "Objetos Digitais de Aprendizado",
-    "definition": "São os jogos criados, com base pedagógica, para os alunos.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:26:38.180Z"
-  },
-  {
-    "id": "term-1792412698430-44bkhv",
-    "term": "OM",
-    "expansion": "Orientação Metodológica - são as orientações para os professores (NDE)",
-    "definition": "São as orientações para os professores (NDE)",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:25:14.527Z"
-  },
-  {
-    "id": "term-1792412644275-n1vxme",
-    "term": "OMD",
-    "expansion": "Observações Materiais Didáticos - Reclamações",
-    "definition": "São apontamentos que as escolas, professores, pais e alunos fazem sobre o material, que são avaliados pelo time tanto do impresso quanto do digital para dar um retorno, e se for o caso, fazer o ajuste solicitado.",
-    "example": "",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tags": [],
-    "isFavorite": false,
-    "updatedAt": "2026-10-19T12:24:04.275Z"
   },
   {
     "id": "term-okr",
@@ -610,7 +308,7 @@
       "finanças",
       "crescimento"
     ],
-    "isFavorite": false
+    "isFavorite": true
   },
   {
     "id": "term-churn",
@@ -953,7 +651,7 @@
       "pedagógico",
       "currículo"
     ],
-    "isFavorite": false
+    "isFavorite": true
   },
   {
     "id": "term-lms",
