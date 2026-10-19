@@ -448,23 +448,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-fyi",
-    "term": "FYI",
-    "expansion": "For Your Information (Para Seu Conhecimento)",
-    "definition": "Indica que a mensagem ou e-mail está sendo compartilhado apenas para você ficar por dentro, sem necessidade de tomar uma ação imediata.",
-    "example": "FYI: o cliente acabou de confirmar a assinatura do contrato.",
-    "department": "Geral & Comunicação",
-    "importance": "essencial",
-    "tip": "Se você receber um e-mail com \"FYI\", geralmente significa \"leia quando puder, só para saber\".",
-    "pronunciation": "Ef-Uai-Ai ou F-Y-I",
-    "tags": [
-      "comunicação",
-      "email",
-      "slack"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-q1-q4",
     "term": "Q1, Q2, Q3, Q4",
     "expansion": "Quarter 1 a 4 (Primeiro ao Quarto Trimestre do Ano)",
