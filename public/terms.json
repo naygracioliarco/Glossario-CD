@@ -445,7 +445,7 @@
       "liderança",
       "alinhamento"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-onboarding",
@@ -651,7 +651,7 @@
       "pedagógico",
       "currículo"
     ],
-    "isFavorite": true
+    "isFavorite": false
   },
   {
     "id": "term-lms",
