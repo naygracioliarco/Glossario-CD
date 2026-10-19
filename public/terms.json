@@ -327,23 +327,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-turnover",
-    "term": "Turnover",
-    "expansion": "Taxa de Rotatividade de Funcionários",
-    "definition": "Índice que mede a relação entre admissões e demissões/saídas voluntárias de funcionários em determinado período.",
-    "example": "A criação de novos planos de carreira ajudou a reduzir o turnover na área de tecnologia.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "Turnover saudável oxigena a empresa; turnover muito alto pode indicar problemas de clima ou remuneração.",
-    "pronunciation": "Tãrn-ôuver",
-    "tags": [
-      "rh",
-      "equipe",
-      "retenção"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-headcount",
     "term": "Headcount",
     "expansion": "Contagem Total de Colaboradores / Número de Pessoas na Equipe",
