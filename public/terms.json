@@ -1,5 +1,41 @@
 [
   {
+    "id": "term-1792415036350-xa1qhj",
+    "term": "EM",
+    "expansion": "Ensino Médio",
+    "definition": "Ensino Médio - 1ª a 3ª série",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:03:56.350Z"
+  },
+  {
+    "id": "term-1792415055655-ofwtv5",
+    "term": "PV",
+    "expansion": "Pré Vestibular",
+    "definition": "Pré Vestibular - [SAS apenas] Material para cursinho",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:04:15.655Z"
+  },
+  {
+    "id": "term-1792415084933-rs3ceu",
+    "term": "PU",
+    "expansion": "Pré Universitário",
+    "definition": "Pré Universitário - [SAS apenas] 3ª série normal",
+    "example": "",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T13:04:44.933Z"
+  },
+  {
     "id": "term-1792414981884-ks1rp5",
     "term": "AI (EFAI)",
     "expansion": "Anos iniciais",
