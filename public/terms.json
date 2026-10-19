@@ -482,23 +482,6 @@
     "isFavorite": false
   },
   {
-    "id": "term-eta",
-    "term": "ETA",
-    "expansion": "Estimated Time of Arrival (Previsão Estimada de Conclusão ou Chegada)",
-    "definition": "Horário ou data prevista para a conclusão de uma entrega, resolução de chamado ou chegada de alguém.",
-    "example": "Qual é o ETA para a liberação da funcionalidade de relatórios?",
-    "department": "Geral & Comunicação",
-    "importance": "essencial",
-    "tip": "Quando alguém no Slack perguntar \"Qual o seu ETA?\", está perguntando \"Para quando você estima entregar?\".",
-    "pronunciation": "I-T-A ou Ê-Tê-Á",
-    "tags": [
-      "prazos",
-      "estimativa",
-      "gestão"
-    ],
-    "isFavorite": false
-  },
-  {
     "id": "term-q1-q4",
     "term": "Q1, Q2, Q3, Q4",
     "expansion": "Quarter 1 a 4 (Primeiro ao Quarto Trimestre do Ano)",
