@@ -1,0 +1,6 @@
+{
+  "name": "Glossário Corporativo de Siglas & Termos",
+  "description": "Guia interativo de siglas, jargões e termos empresariais para onboarding e integração de novos colaboradores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
