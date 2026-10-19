@@ -1,5 +1,17 @@
 [
   {
+    "id": "term-1792419201176-3n5g5t",
+    "term": "ZZZDELTEST",
+    "expansion": "Teste temporário de exclusão",
+    "definition": "Sigla temporaria para verificar se a exclusao permanece no glossario.",
+    "example": "",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T14:13:21.176Z"
+  },
+  {
     "id": "term-okr",
     "term": "OKR",
     "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
