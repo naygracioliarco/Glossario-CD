@@ -7,13 +7,24 @@ export function getWriteToken(): string {
   return (import.meta.env.VITE_GLOSSARY_WRITE_TOKEN as string | undefined)?.trim() || '';
 }
 
+export class GlossaryConflictError extends Error {
+  constructor(message = 'O glossário mudou enquanto salvávamos.') {
+    super(message);
+    this.name = 'GlossaryConflictError';
+  }
+}
+
 export function mergeSharedTerms(
   remote: GlossaryTerm[],
   local: GlossaryTerm[],
-  _previousShared: GlossaryTerm[],
+  previousShared: GlossaryTerm[],
   deletedIds: string[] = [],
 ): GlossaryTerm[] {
-  const deleted = new Set(deletedIds);
+  const remoteIds = new Set(remote.map((term) => term.id));
+  const colleagueDeleted = previousShared
+    .map((term) => term.id)
+    .filter((id) => !remoteIds.has(id));
+  const deleted = new Set([...deletedIds, ...colleagueDeleted]);
   const merged = local.filter((term) => !deleted.has(term.id));
   const mergedIds = new Set(merged.map((term) => term.id));
 
@@ -28,7 +39,7 @@ export function mergeSharedTerms(
   return merged;
 }
 
-export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm[]> {
+export async function fetchGlossaryFile(token?: string): Promise<{terms: GlossaryTerm[]; sha: string}> {
   const [owner, repo] = GLOSSARY_REPO.split('/');
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
@@ -40,14 +51,14 @@ export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm
 
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}?ref=main`,
-    {headers},
+    {headers, cache: 'no-store'},
   );
   if (!response.ok) {
     throw new Error('Não consegui ler o glossário compartilhado.');
   }
 
-  const payload = (await response.json()) as {content?: string};
-  if (!payload.content) {
+  const payload = (await response.json()) as {content?: string; sha?: string};
+  if (!payload.content || !payload.sha) {
     throw new Error('O arquivo compartilhado está vazio.');
   }
 
@@ -55,13 +66,18 @@ export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm
   if (!Array.isArray(parsed)) {
     throw new Error('O glossário compartilhado está em um formato inválido.');
   }
-  return parsed;
+  return {terms: parsed, sha: payload.sha};
+}
+
+export async function fetchTermsFromGithub(token?: string): Promise<GlossaryTerm[]> {
+  const file = await fetchGlossaryFile(token);
+  return file.terms;
 }
 
 export async function publishTermsToGithub(
   terms: GlossaryTerm[],
   token: string,
-  attempt = 0,
+  sha: string,
 ): Promise<void> {
   const authToken = token.trim();
   if (!authToken) {
@@ -70,43 +86,28 @@ export async function publishTermsToGithub(
 
   const [owner, repo] = GLOSSARY_REPO.split('/');
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${FILE_PATH}`;
-  const requestHeaders = {
-    Authorization: `Bearer ${authToken}`,
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-  };
-
-  const currentResponse = await fetch(`${apiUrl}?ref=main`, {headers: requestHeaders});
-  if (currentResponse.status === 401 || currentResponse.status === 403) {
-    throw new Error('Sem permissão para publicar o glossário compartilhado.');
-  }
-  if (!currentResponse.ok) {
-    throw new Error('Não consegui ler o glossário compartilhado.');
-  }
-
-  const current = (await currentResponse.json()) as {sha?: string};
-  if (!current.sha) {
-    throw new Error('Não encontrei a versão atual do glossário.');
-  }
-
   const updateResponse = await fetch(apiUrl, {
     method: 'PUT',
     headers: {
-      ...requestHeaders,
+      Authorization: `Bearer ${authToken}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       message: 'chore: atualizar glossário compartilhado',
       content: encodeUtf8ToBase64(`${JSON.stringify(terms, null, 2)}\n`),
-      sha: current.sha,
+      sha,
       branch: 'main',
     }),
   });
 
-  if (updateResponse.status === 409 && attempt < 2) {
-    return publishTermsToGithub(terms, token, attempt + 1);
+  if (updateResponse.status === 409 || updateResponse.status === 422) {
+    throw new GlossaryConflictError();
   }
-
+  if (updateResponse.status === 401 || updateResponse.status === 403) {
+    throw new Error('Sem permissão para publicar o glossário compartilhado.');
+  }
   if (!updateResponse.ok) {
     const details = (await updateResponse.json().catch(() => null)) as {message?: string} | null;
     throw new Error(details?.message || 'Não foi possível publicar o glossário.');

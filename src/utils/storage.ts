@@ -1,9 +1,22 @@
 import { GlossaryTerm } from '../types';
 import { INITIAL_TERMS } from '../data/defaultTerms';
-import { fetchTermsFromGithub, getWriteToken, mergeSharedTerms, publishTermsToGithub } from './publish';
+import {
+  fetchGlossaryFile,
+  fetchTermsFromGithub,
+  getWriteToken,
+  GlossaryConflictError,
+  mergeSharedTerms,
+  publishTermsToGithub,
+} from './publish';
 
-const PENDING_KEY = 'company_glossary_pending_v1';
+const PENDING_KEY = 'company_glossary_pending_v2';
+const LEGACY_PENDING_KEY = 'company_glossary_pending_v1';
 const LEGACY_LOCAL_KEY = 'company_glossary_terms_v1';
+
+export interface PendingGlossaryState {
+  terms: GlossaryTerm[];
+  deletedIds: string[];
+}
 
 export function sharedTermsUrl(): string {
   return `${import.meta.env.BASE_URL}terms.json`;
@@ -35,26 +48,43 @@ export async function loadSharedTerms(): Promise<GlossaryTerm[]> {
   }
 }
 
-export function loadPendingTerms(): GlossaryTerm[] | null {
+export function loadPendingState(): PendingGlossaryState | null {
   try {
-    const raw = localStorage.getItem(PENDING_KEY) || localStorage.getItem(LEGACY_LOCAL_KEY);
+    const raw =
+      localStorage.getItem(PENDING_KEY) ||
+      localStorage.getItem(LEGACY_PENDING_KEY) ||
+      localStorage.getItem(LEGACY_LOCAL_KEY);
     if (!raw) {
       return null;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : null;
+    if (Array.isArray(parsed)) {
+      return {terms: parsed, deletedIds: []};
+    }
+    if (parsed && Array.isArray(parsed.terms)) {
+      return {
+        terms: parsed.terms,
+        deletedIds: Array.isArray(parsed.deletedIds) ? parsed.deletedIds : [],
+      };
+    }
+    return null;
   } catch {
     return null;
   }
 }
 
-export function savePendingTerms(terms: GlossaryTerm[] | null): void {
+export function loadPendingTerms(): GlossaryTerm[] | null {
+  return loadPendingState()?.terms ?? null;
+}
+
+export function savePendingTerms(terms: GlossaryTerm[] | null, deletedIds: string[] = []): void {
   try {
     if (terms == null) {
       localStorage.removeItem(PENDING_KEY);
+      localStorage.removeItem(LEGACY_PENDING_KEY);
       return;
     }
-    localStorage.setItem(PENDING_KEY, JSON.stringify(terms));
+    localStorage.setItem(PENDING_KEY, JSON.stringify({terms, deletedIds}));
   } catch (err) {
     console.error('Erro ao guardar alterações locais:', err);
   }
@@ -67,19 +97,14 @@ export function listsEqual(left: GlossaryTerm[], right: GlossaryTerm[]): boolean
 export function reconcilePending(
   shared: GlossaryTerm[],
   pending: GlossaryTerm[] | null,
+  deletedIds: string[] = [],
+  previousShared: GlossaryTerm[] = shared,
 ): GlossaryTerm[] {
-  if (!pending) {
-    return shared;
-  }
+  return mergeSharedTerms(shared, pending ?? previousShared, previousShared, deletedIds);
+}
 
-  const sharedIds = new Set(shared.map((term) => term.id));
-  const seedIds = new Set(INITIAL_TERMS.map((term) => term.id));
-
-  const unpublishedAdds = pending.filter(
-    (term) => !sharedIds.has(term.id) && !seedIds.has(term.id),
-  );
-
-  return [...unpublishedAdds, ...shared];
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
 export async function persistTerms(
@@ -104,15 +129,28 @@ export async function persistTerms(
       savePendingTerms(null);
       return terms;
     }
-    savePendingTerms(terms);
+    savePendingTerms(terms, deletedIds);
     throw new Error('A publicação compartilhada ainda não foi configurada.');
   }
 
-  const remote = await fetchTermsFromGithub(token);
-  const merged = mergeSharedTerms(remote, terms, previousShared, deletedIds);
-  await publishTermsToGithub(merged, token);
-  savePendingTerms(null);
-  return merged;
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const file = await fetchGlossaryFile(token);
+      const merged = mergeSharedTerms(file.terms, terms, previousShared, deletedIds);
+      await publishTermsToGithub(merged, token, file.sha);
+      savePendingTerms(null);
+      return merged;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error('Não foi possível salvar.');
+      if (!(error instanceof GlossaryConflictError) || attempt === 4) {
+        throw lastError;
+      }
+      await sleep(250 * 2 ** attempt);
+    }
+  }
+
+  throw lastError ?? new Error('Não foi possível publicar o glossário.');
 }
 
 export function resetToDefaults(): GlossaryTerm[] {
