@@ -781,7 +781,7 @@
       "liderança",
       "alinhamento"
     ],
-    "isFavorite": false
+    "isFavorite": true
   },
   {
     "id": "term-onboarding",
@@ -883,23 +883,6 @@
       "comunicação",
       "email",
       "slack"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-eod",
-    "term": "EOD / EOW",
-    "expansion": "End of Day (Final do Dia) / End of Week (Final da Semana)",
-    "definition": "Prazo estipulado para a entrega de uma demanda até o encerramento do expediente de trabalho.",
-    "example": "Vou enviar a planilha revisada para vocês até o EOD de hoje.",
-    "department": "Geral & Comunicação",
-    "importance": "essencial",
-    "tip": "Normalmente refere-se às 18h ou ao término do horário comercial daquele dia.",
-    "pronunciation": "I-Ou-Di e I-Ou-Dábliu",
-    "tags": [
-      "prazos",
-      "horários",
-      "comunicação"
     ],
     "isFavorite": false
   },
