@@ -1,5 +1,779 @@
 [
   {
+    "id": "term-okr",
+    "term": "OKR",
+    "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
+    "definition": "Metodologia de gestão de metas usada para alinhar a direção estratégica da empresa com entregas mensuráveis e desafiadoras trimestrais.",
+    "example": "Pessoal, vamos revisar os OKRs do Q3 na reunião de alinhamento de amanhã.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "O Objetivo diz para ONDE vamos; o Key Result (KR) é a métrica numérica que prova se chegamos lá.",
+    "pronunciation": "O-K-R (ou Ôu-Kêi-Ár)",
+    "tags": [
+      "metas",
+      "estratégia",
+      "trimestre",
+      "planejamento"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-sla",
+    "term": "SLA",
+    "expansion": "Service Level Agreement (Acordo de Nível de Serviço)",
+    "definition": "Prazo ou padrão formal acordado entre equipes ou com clientes para atender a um chamado, ticket ou entrega.",
+    "example": "O time de suporte tem um SLA de até 2 horas para incidentes críticos.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Quando alguém disser \"estourou o SLA\", significa que o prazo máximo acordado foi ultrapassado.",
+    "pronunciation": "S-L-A",
+    "tags": [
+      "atendimento",
+      "prazos",
+      "suporte",
+      "qualidade"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-kpi",
+    "term": "KPI",
+    "expansion": "Key Performance Indicator (Indicador-Chave de Desempenho)",
+    "definition": "Indicadores quantitativos contínuos que medem a saúde e a performance operacional dos processos da área.",
+    "example": "Nossos principais KPIs este mês são taxa de conversão e tempo médio de resposta.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "Diferença clássica: KPI monitora a rotina constante; OKR busca uma mudança de patamar.",
+    "pronunciation": "K-P-I (ou Kêi-Pí-Ai)",
+    "tags": [
+      "métricas",
+      "performance",
+      "dashboards"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-mvp",
+    "term": "MVP",
+    "expansion": "Minimum Viable Product (Produto Mínimo Viável)",
+    "definition": "A versão mais enxuta e funcional de uma nova funcionalidade ou produto, lançada rapidamente para validar valor com usuários reais.",
+    "example": "Vamos lançar um MVP dessa funcionalidade apenas para um grupo piloto de 10 clientes.",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "MVP não é algo malfeito, e sim a solução mais simples que resolve o problema central.",
+    "pronunciation": "M-V-P",
+    "tags": [
+      "produto",
+      "lançamento",
+      "agilidade",
+      "validação"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-pr",
+    "term": "PR",
+    "expansion": "Pull Request",
+    "definition": "Solicitação feita por um desenvolvedor para que outros colegas revisem o código alterado antes de integrá-lo ao sistema principal.",
+    "example": "Abri o PR da tela de pagamentos, alguém do time pode fazer o code review?",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "No contexto de marketing, PR também pode significar Public Relations (Relações Públicas).",
+    "pronunciation": "P-R (ou Pê-Érre)",
+    "tags": [
+      "código",
+      "desenvolvimento",
+      "review",
+      "github"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-poc",
+    "term": "POC",
+    "expansion": "Proof of Concept (Prova de Conceito)",
+    "definition": "Um teste experimental técnico para comprovar se uma ideia, tecnologia ou integração é viável na prática.",
+    "example": "Antes de assinar o contrato da nova ferramenta, vamos rodar uma POC de duas semanas.",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tip": "Geralmente tem código descartável, feito apenas para responder à pergunta: \"é tecnicamente possível?\".",
+    "pronunciation": "Póque ou P-O-C",
+    "tags": [
+      "tecnologia",
+      "teste",
+      "viabilidade"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-api",
+    "term": "API",
+    "expansion": "Application Programming Interface (Interface de Programação de Aplicações)",
+    "definition": "Ponte de comunicação padronizada que permite que sistemas e softwares diferentes troquem dados de forma automatizada.",
+    "example": "Integramos nossa plataforma ao sistema de faturamento via API.",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "Pense na API como o garçom de um restaurante: leva o seu pedido à cozinha e traz a resposta.",
+    "pronunciation": "A-P-I (ou Ei-Pí-Ai)",
+    "tags": [
+      "integração",
+      "dados",
+      "sistemas"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-qa",
+    "term": "QA",
+    "expansion": "Quality Assurance (Garantia de Qualidade)",
+    "definition": "Profissional ou disciplina responsável por testar sistemas, encontrar bugs e assegurar a estabilidade antes da entrega aos usuários.",
+    "example": "A tarefa já passou por desenvolvimento e agora está em validação com o QA.",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tip": "Muitas vezes usado para se referir tanto à pessoa (\"o QA testou?\") quanto ao ambiente (\"ambiente de QA\").",
+    "pronunciation": "Q-A (ou Kiú-Ei)",
+    "tags": [
+      "testes",
+      "qualidade",
+      "bugs"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-prod-homolog",
+    "term": "Prod & Homolog",
+    "expansion": "Produção e Homologação (Staging)",
+    "definition": "Os dois ambientes cruciais: Homologação é onde a equipe testa com segurança; Produção é onde os clientes e usuários reais usam o sistema.",
+    "example": "Testamos com sucesso em homolog, hoje à noite fazemos o deploy em prod.",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "Cuidado redobrado: nunca rode testes manuais ou scripts de exclusão diretamente em Prod!",
+    "pronunciation": "Pród e Homológ",
+    "tags": [
+      "infraestrutura",
+      "servidores",
+      "deploy"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-deploy",
+    "term": "Deploy",
+    "expansion": "Deployment (Implantação / Publicação)",
+    "definition": "O ato de compilar e publicar uma nova versão de software, site ou aplicativo para que fique acessível aos usuários.",
+    "example": "O deploy da versão 2.4 está programado para as 19h para não impactar os acessos.",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "Em muitas empresas existe a regra de ouro: \"Evite fazer deploy nas sextas-feiras à tarde\".",
+    "pronunciation": "Di-plói",
+    "tags": [
+      "software",
+      "lançamento",
+      "produção"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-backlog",
+    "term": "Backlog",
+    "expansion": "Product Backlog / Sprint Backlog",
+    "definition": "Lista organizada e priorizada de todas as tarefas, melhorias, bugs e funcionalidades aguardando desenvolvimento.",
+    "example": "Essa melhoria faz sentido, mas vamos colocá-la no backlog para priorizar na próxima sprint.",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tip": "O Product Manager (PM) é quem geralmente prioriza o que sai do backlog para a execução.",
+    "pronunciation": "Béqui-lógui",
+    "tags": [
+      "scrum",
+      "agile",
+      "tarefas"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-sprint",
+    "term": "Sprint",
+    "expansion": "Ciclo de Desenvolvimento Ágil",
+    "definition": "Período de tempo fixo (comumente 1 ou 2 semanas) no qual a equipe se compromete a concluir um pacote específico de tarefas.",
+    "example": "Na Sprint 45 vamos focar exclusivamente na melhoria da tela de login e onboarding.",
+    "department": "Tecnologia & Produto",
+    "importance": "essencial",
+    "tip": "Ao final de cada sprint geralmente acontecem a Sprint Review (demonstração) e a Retrospectiva.",
+    "pronunciation": "Es-printe",
+    "tags": [
+      "scrum",
+      "agile",
+      "prazos"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-daily",
+    "term": "Daily",
+    "expansion": "Daily Stand-up Meeting",
+    "definition": "Reunião diária e rápida (10 a 15 min) da equipe para compartilhar o que foi feito ontem, o que fará hoje e se há algum impedimento.",
+    "example": "Nos vemos na daily das 9h30 para alinhar as entregas do dia.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Mantenha o foco: a daily não é para resolver problemas longos, e sim para sinalizar quem precisa de ajuda.",
+    "pronunciation": "Dêili",
+    "tags": [
+      "reunião",
+      "alinhamento",
+      "rotina"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-ux-ui",
+    "term": "UX / UI",
+    "expansion": "User Experience (Experiência do Usuário) & User Interface (Interface do Usuário)",
+    "definition": "UX é como o usuário se sente e navega pelo fluxo do produto; UI é a camada visual (cores, botões, tipografia e layout).",
+    "example": "O time de UX/UI redesenhou o fluxo de checkout e reduziu os passos pela metade.",
+    "department": "Tecnologia & Produto",
+    "importance": "frequente",
+    "tip": "UX pensa na jornada e na facilidade de uso; UI cria o visual polido que você vê na tela.",
+    "pronunciation": "U-Xis / U-Í",
+    "tags": [
+      "design",
+      "interface",
+      "pesquisa"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-cac",
+    "term": "CAC",
+    "expansion": "Custo de Aquisição de Clientes (Customer Acquisition Cost)",
+    "definition": "Total investido em marketing e vendas dividido pelo número de novos clientes conquistados no período.",
+    "example": "Reduzimos nosso CAC em 18% otimizando as campanhas e as conversões do site.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "A regra de ouro em negócios saudáveis: o LTV (valor gerado) deve ser consideravelmente maior que o CAC (ao menos 3x).",
+    "pronunciation": "C-A-C (Cáqui ou Cê-A-Cê)",
+    "tags": [
+      "vendas",
+      "marketing",
+      "finanças",
+      "crescimento"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-ltv",
+    "term": "LTV",
+    "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
+    "definition": "Estimativa de quanto dinheiro um cliente gera em receita para a empresa durante todo o tempo em que permanece como cliente.",
+    "example": "Clientes que utilizam nossos módulos avançados têm um LTV 40% superior à média.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "Quanto maior a retenção e menor o cancelamento, maior será o LTV.",
+    "pronunciation": "L-T-V (Éle-Tê-Vê)",
+    "tags": [
+      "vendas",
+      "retenção",
+      "faturamento"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-churn",
+    "term": "Churn Rate",
+    "expansion": "Taxa de Cancelamento / Evasão de Clientes",
+    "definition": "Percentual de clientes ou de receita que cancelou o serviço/assinatura em um determinado período de tempo.",
+    "example": "Fechamos o mês com um churn de 1.2%, bem abaixo da meta estabelecida pela diretoria.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "No contexto de RH, também se fala em \"churn de equipe\", referindo-se a colaboradores que saíram da empresa.",
+    "pronunciation": "Tchãrn",
+    "tags": [
+      "cancelamento",
+      "retenção",
+      "saúde-do-negócio"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-mrr-arr",
+    "term": "MRR & ARR",
+    "expansion": "Monthly Recurring Revenue & Annual Recurring Revenue",
+    "definition": "Receita Recorrente Mensal (MRR) e Receita Recorrente Anual (ARR) geradas por contratos ou planos de assinatura.",
+    "example": "Nossa meta é ultrapassar R$ 500 mil em MRR antes do final do segundo semestre.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "Essas duas métricas são os pilares de avaliação para qualquer empresa baseada em SaaS ou mensalidades.",
+    "pronunciation": "M-R-R e A-R-R",
+    "tags": [
+      "receita",
+      "faturamento",
+      "assinatura",
+      "finanças"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-b2b-b2c",
+    "term": "B2B & B2C",
+    "expansion": "Business to Business & Business to Consumer",
+    "definition": "B2B: vendas e produtos de empresa para empresa. B2C: vendas e produtos direcionados diretamente ao consumidor final.",
+    "example": "Nosso produto principal é B2B, focado em escolas e redes de ensino.",
+    "department": "Negócios & Vendas",
+    "importance": "essencial",
+    "tip": "Existem também B2B2C (vende para empresa que repassa ao consumidor) e B2G (vendas para o governo).",
+    "pronunciation": "Bi-tu-Bi e Bi-tu-Ci",
+    "tags": [
+      "mercado",
+      "modelo-de-negócio"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-icp",
+    "term": "ICP",
+    "expansion": "Ideal Customer Profile (Perfil de Cliente Ideal)",
+    "definition": "Descrição detalhada do tipo de cliente que mais se beneficia do produto, tem maior taxa de retenção e menor custo de venda.",
+    "example": "Vamos focar a prospecção ativa apenas em contas que se enquadram 100% no nosso ICP.",
+    "department": "Negócios & Vendas",
+    "importance": "frequente",
+    "tip": "Diferente de \"persona\" (que foca no indivíduo), o ICP foca nas características da organização contratante.",
+    "pronunciation": "I-C-P (ou Ai-Cí-Pí)",
+    "tags": [
+      "vendas",
+      "prospecção",
+      "estratégia"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-ebitda",
+    "term": "EBITDA",
+    "expansion": "Lucros Antes de Juros, Impostos, Depreciação e Amortização (LAJIDA)",
+    "definition": "Indicador financeiro que mede a capacidade de geração de caixa puramente operacional da empresa, sem distorções financeiras ou fiscais.",
+    "example": "A margem EBITDA da empresa cresceu 4 pontos percentuais no último balanço.",
+    "department": "Financeiro & Operações",
+    "importance": "essencial",
+    "tip": "Muito acompanhado por investidores e conselhos de administração para avaliar a saúde da operação.",
+    "pronunciation": "Ebítida ou I-B-I-T-D-A",
+    "tags": [
+      "finanças",
+      "lucratividade",
+      "gestão"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-opex-capex",
+    "term": "OPEX & CAPEX",
+    "expansion": "Operational Expenditure & Capital Expenditure",
+    "definition": "OPEX: despesas contínuas de operação (salários, nuvem, aluguel). CAPEX: investimentos em bens de capital e ativos duradouros (compra de servidores, reformas).",
+    "example": "Migrar nossos servidores para nuvem reduziu nosso CAPEX e transformou o custo em OPEX mensal.",
+    "department": "Financeiro & Operações",
+    "importance": "frequente",
+    "tip": "Decisões entre OPEX e CAPEX afetam diretamente a tributação e o fluxo de caixa da empresa.",
+    "pronunciation": "Ópequis e Képequis",
+    "tags": [
+      "contabilidade",
+      "custos",
+      "orçamento"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-dre",
+    "term": "DRE",
+    "expansion": "Demonstração do Resultado do Exercício",
+    "definition": "Relatório contábil consolidado que sintetiza receitas, custos, despesas e impostos para evidenciar se houve lucro ou prejuízo no período.",
+    "example": "Na reunião de resultados, o diretor financeiro apresentará a DRE do último trimestre.",
+    "department": "Financeiro & Operações",
+    "importance": "frequente",
+    "tip": "Costuma ser analisada mensalmente e anualmente pelos gestores para controle de despesas.",
+    "pronunciation": "D-R-E",
+    "tags": [
+      "finanças",
+      "relatório",
+      "contabilidade"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-pipeline",
+    "term": "Pipeline",
+    "expansion": "Funil de Vendas / Fluxo de Oportunidades",
+    "definition": "Representação visual de todas as negociações em andamento, divididas pelas etapas do funil até o fechamento.",
+    "example": "Precisamos de mais leads qualificados para alimentar o pipeline de vendas do próximo mês.",
+    "department": "Negócios & Vendas",
+    "importance": "frequente",
+    "tip": "Também é usado em tecnologia (CI/CD pipeline) para se referir ao fluxo de automação de testes e deploys.",
+    "pronunciation": "Paipe-laine",
+    "tags": [
+      "crm",
+      "vendas",
+      "funil"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-nps",
+    "term": "NPS",
+    "expansion": "Net Promoter Score",
+    "definition": "Pesquisa com a pergunta clássica: \"De 0 a 10, quanto você recomendaria nossa empresa para um colega?\". Calcula promotores menos detratores.",
+    "example": "Nosso NPS subiu de 62 para 74 após as melhorias no suporte ao cliente.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Notas 9-10 são Promotores, 7-8 são Neutros, 0-6 são Detratores.",
+    "pronunciation": "N-P-S",
+    "tags": [
+      "satisfação",
+      "cliente",
+      "pesquisa"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-1-1",
+    "term": "1:1",
+    "expansion": "One-on-One (Reunião Um a Um)",
+    "definition": "Encontro periódico individual entre líder e liderado focado em feedback, desenvolvimento de carreira, alinhamento de expectativas e escuta ativa.",
+    "example": "Tenho minha 1:1 quinzenal com a minha liderança na quinta-feira à tarde.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "essencial",
+    "tip": "A 1:1 é a reunião DO LIDERADO. Traga suas dúvidas, dores, conquistas e planos para a pauta.",
+    "pronunciation": "Uan-on-Uan (ou Um pra Um)",
+    "tags": [
+      "feedback",
+      "carreira",
+      "liderança",
+      "alinhamento"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-onboarding",
+    "term": "Onboarding",
+    "expansion": "Processo de Integração e Acolhimento de Novos Colaboradores",
+    "definition": "Período e conjunto de treinamentos para que um novo membro da equipe conheça a cultura, as ferramentas, os processos e comece a produzir com segurança.",
+    "example": "Durante minha primeira semana passei pelo onboarding institucional da empresa.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "essencial",
+    "tip": "Este próprio glossário foi criado para facilitar o seu onboarding! Não hesite em perguntar sobre qualquer dúvida.",
+    "pronunciation": "On-bórdin",
+    "tags": [
+      "integração",
+      "início",
+      "rh",
+      "treinamento"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-pdi",
+    "term": "PDI",
+    "expansion": "Plano de Desenvolvimento Individual",
+    "definition": "Roteiro estruturado com ações, cursos, mentorias e metas que o colaborador estabelece junto à sua liderança para crescer na carreira.",
+    "example": "Coloquei no meu PDI deste ano uma meta de aprofundar em análise de dados e liderança de projetos.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "essencial",
+    "tip": "Revise seu PDI nas reuniões de 1:1 ao menos uma vez por mês para não deixá-lo engavetado.",
+    "pronunciation": "P-D-I",
+    "tags": [
+      "carreira",
+      "evolução",
+      "metas-pessoais"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-turnover",
+    "term": "Turnover",
+    "expansion": "Taxa de Rotatividade de Funcionários",
+    "definition": "Índice que mede a relação entre admissões e demissões/saídas voluntárias de funcionários em determinado período.",
+    "example": "A criação de novos planos de carreira ajudou a reduzir o turnover na área de tecnologia.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "frequente",
+    "tip": "Turnover saudável oxigena a empresa; turnover muito alto pode indicar problemas de clima ou remuneração.",
+    "pronunciation": "Tãrn-ôuver",
+    "tags": [
+      "rh",
+      "equipe",
+      "retenção"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-headcount",
+    "term": "Headcount",
+    "expansion": "Contagem Total de Colaboradores / Número de Pessoas na Equipe",
+    "definition": "O número total de pessoas trabalhando em uma empresa, departamento ou projeto específico.",
+    "example": "O headcount aprovado para o time de produto é de 8 pessoas até o fim do ano.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "frequente",
+    "tip": "Quando dizem \"abertura de headcount\", significa autorização formal para abrir uma nova vaga de emprego.",
+    "pronunciation": "Rédi-caunte",
+    "tags": [
+      "vagas",
+      "equipe",
+      "orçamento"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-evp",
+    "term": "EVP",
+    "expansion": "Employee Value Proposition (Proposta de Valor ao Empregado)",
+    "definition": "Conjunto de benefícios, cultura, valores e oportunidades de desenvolvimento que a empresa oferece aos seus colaboradores em troca do seu talento.",
+    "example": "Nosso EVP inclui horários flexíveis, auxílio educação e programa de apoio à saúde mental.",
+    "department": "Gente & Gestão (RH)",
+    "importance": "especifico",
+    "tip": "É o que atrai e retém os melhores profissionais no mercado.",
+    "pronunciation": "E-V-P",
+    "tags": [
+      "benefícios",
+      "cultura",
+      "marca-empregadora"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-asap",
+    "term": "ASAP",
+    "expansion": "As Soon As Possible (O mais rápido possível)",
+    "definition": "Expressão usada em mensagens para indicar que algo precisa ser feito com urgência ou prioridade máxima.",
+    "example": "Pode me enviar o link da apresentação ASAP? A reunião já começou.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Use com moderação: se tudo for urgente/ASAP, nada é realmente priorizado.",
+    "pronunciation": "Ei-Sép ou A-S-A-P",
+    "tags": [
+      "urgência",
+      "comunicação",
+      "slack"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-fyi",
+    "term": "FYI",
+    "expansion": "For Your Information (Para Seu Conhecimento)",
+    "definition": "Indica que a mensagem ou e-mail está sendo compartilhado apenas para você ficar por dentro, sem necessidade de tomar uma ação imediata.",
+    "example": "FYI: o cliente acabou de confirmar a assinatura do contrato.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Se você receber um e-mail com \"FYI\", geralmente significa \"leia quando puder, só para saber\".",
+    "pronunciation": "Ef-Uai-Ai ou F-Y-I",
+    "tags": [
+      "comunicação",
+      "email",
+      "slack"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-eod",
+    "term": "EOD / EOW",
+    "expansion": "End of Day (Final do Dia) / End of Week (Final da Semana)",
+    "definition": "Prazo estipulado para a entrega de uma demanda até o encerramento do expediente de trabalho.",
+    "example": "Vou enviar a planilha revisada para vocês até o EOD de hoje.",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Normalmente refere-se às 18h ou ao término do horário comercial daquele dia.",
+    "pronunciation": "I-Ou-Di e I-Ou-Dábliu",
+    "tags": [
+      "prazos",
+      "horários",
+      "comunicação"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-eta",
+    "term": "ETA",
+    "expansion": "Estimated Time of Arrival (Previsão Estimada de Conclusão ou Chegada)",
+    "definition": "Horário ou data prevista para a conclusão de uma entrega, resolução de chamado ou chegada de alguém.",
+    "example": "Qual é o ETA para a liberação da funcionalidade de relatórios?",
+    "department": "Geral & Comunicação",
+    "importance": "essencial",
+    "tip": "Quando alguém no Slack perguntar \"Qual o seu ETA?\", está perguntando \"Para quando você estima entregar?\".",
+    "pronunciation": "I-T-A ou Ê-Tê-Á",
+    "tags": [
+      "prazos",
+      "estimativa",
+      "gestão"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-q1-q4",
+    "term": "Q1, Q2, Q3, Q4",
+    "expansion": "Quarter 1 a 4 (Primeiro ao Quarto Trimestre do Ano)",
+    "definition": "Divisão do ano fiscal e de negócios em quatro blocos de 3 meses: Q1 (Jan-Mar), Q2 (Abr-Jun), Q3 (Jul-Set) e Q4 (Out-Dez).",
+    "example": "Nosso planejamento financeiro para o Q4 prevê a contratação de novos especialistas.",
+    "department": "Financeiro & Operações",
+    "importance": "essencial",
+    "tip": "Empresas usam quarters para traçar metas, apurar lucros e lançar grandes projetos.",
+    "pronunciation": "Quarto 1 / Qui-Um",
+    "tags": [
+      "calendário",
+      "trimestre",
+      "planejamento"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-kickoff",
+    "term": "Kick-off",
+    "expansion": "Reunião Inicial de Alinhamento e Lançamento de Projeto",
+    "definition": "Primeira reunião formal realizada no início de um novo projeto, parceria ou ciclo para alinhar objetivos, responsabilidades e cronograma com todos os envolvidos.",
+    "example": "Teremos o kick-off do novo sistema de matrículas na próxima terça-feira.",
+    "department": "Geral & Comunicação",
+    "importance": "frequente",
+    "tip": "Uma boa oportunidade para tirar todas as dúvidas e entender quem é quem no projeto.",
+    "pronunciation": "Quique-ófe",
+    "tags": [
+      "reunião",
+      "lançamento",
+      "projetos"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-bncc",
+    "term": "BNCC",
+    "expansion": "Base Nacional Comum Curricular",
+    "definition": "Documento normativo federal que define o conjunto de aprendizagens essenciais que todos os alunos devem desenvolver ao longo da Educação Básica no Brasil.",
+    "example": "Todos os materiais didáticos da coleção deste ano foram atualizados conforme as habilidades da BNCC.",
+    "department": "Educação & Pedagógico",
+    "importance": "essencial",
+    "tip": "Termo central e obrigatório em qualquer empresa de educação básica, editoras e edtechs no Brasil.",
+    "pronunciation": "B-N-C-C (Bê-Éne-Cê-Cê)",
+    "tags": [
+      "educação",
+      "legislação",
+      "pedagógico",
+      "currículo"
+    ],
+    "isFavorite": true
+  },
+  {
+    "id": "term-lms",
+    "term": "LMS",
+    "expansion": "Learning Management System (Sistema de Gestão da Aprendizagem)",
+    "definition": "Plataforma digital ou software utilizado para hospedar cursos, disponibilizar videoaulas, acompanhar notas e gerenciar a jornada dos estudantes.",
+    "example": "Mais de 50 mil alunos acessam os simulados e tarefas diariamente através do nosso LMS.",
+    "department": "Educação & Pedagógico",
+    "importance": "essencial",
+    "tip": "Exemplos famosos de LMS incluem Moodle, Canvas, Blackboard e plataformas proprietárias.",
+    "pronunciation": "L-M-S (Éle-Eme-Ésse)",
+    "tags": [
+      "educação",
+      "plataforma",
+      "edtech",
+      "tecnologia"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-ava",
+    "term": "AVA",
+    "expansion": "Ambiente Virtual de Aprendizagem",
+    "definition": "Espaço digital onde acontecem as interações pedagógicas, entrega de atividades e fóruns de discussão entre alunos e professores.",
+    "example": "Os professores já cadastraram as atividades avaliativas no AVA.",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "tip": "É frequentemente usado como sinônimo em português para LMS.",
+    "pronunciation": "A-V-A (Áva)",
+    "tags": [
+      "educação",
+      "ead",
+      "estudos"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-itinerarios",
+    "term": "Itinerários Formativos",
+    "expansion": "Novo Ensino Médio - Trilhas de Aprofundamento",
+    "definition": "Conjunto de disciplinas, oficinas e projetos que os estudantes do Novo Ensino Médio podem escolher para aprofundar em áreas específicas do conhecimento.",
+    "example": "Desenvolvemos módulos digitais específicos para os itinerários de Ciências da Natureza.",
+    "department": "Educação & Pedagógico",
+    "importance": "especifico",
+    "tip": "Tema muito frequente nas conversas com escolas parceiras e redes educacionais.",
+    "pronunciation": "Itinerários",
+    "tags": [
+      "ensino-médio",
+      "currículo",
+      "escolas"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-sdr-bdr",
+    "term": "SDR & BDR",
+    "expansion": "Sales Development Representative & Business Development Representative",
+    "definition": "Profissionais de pré-vendas responsáveis por prospectar, qualificar leads e agendar reuniões com os executivos de contas (Closers).",
+    "example": "Nosso time de SDRs gerou mais de 120 oportunidades qualificadas nesta semana.",
+    "department": "Negócios & Vendas",
+    "importance": "frequente",
+    "tip": "SDR geralmente foca em leads inbound (que vieram pelo site); BDR foca em prospecção outbound (ativa no mercado).",
+    "pronunciation": "S-D-R e B-D-R",
+    "tags": [
+      "vendas",
+      "prospecção",
+      "leads"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-seo",
+    "term": "SEO",
+    "expansion": "Search Engine Optimization (Otimização para Mecanismos de Busca)",
+    "definition": "Técnicas para posicionar artigos, páginas e sites nos primeiros resultados orgânicos (não pagos) do Google.",
+    "example": "Otimizamos o artigo do blog para SEO e dobramos as visitas orgânicas em dois meses.",
+    "department": "Marketing",
+    "importance": "frequente",
+    "tip": "SEO traz tráfego qualificado de longo prazo sem precisar pagar por clique.",
+    "pronunciation": "S-E-O (ou Ésse-E-Ó)",
+    "tags": [
+      "marketing",
+      "google",
+      "tráfego"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-cta",
+    "term": "CTA",
+    "expansion": "Call to Action (Chamada para Ação)",
+    "definition": "Botão, link ou texto com instrução direta ao usuário para dar o próximo passo (ex: \"Fale com um consultor\", \"Baixe o e-book\").",
+    "example": "Vamos mudar a cor e o texto do CTA principal da landing page para aumentar os cliques.",
+    "department": "Marketing",
+    "importance": "frequente",
+    "tip": "Um bom CTA deve ser claro, direto e evidenciar o benefício.",
+    "pronunciation": "C-T-A (Cê-Tê-A)",
+    "tags": [
+      "conversão",
+      "marketing",
+      "design"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": "term-raci",
+    "term": "Matriz RACI",
+    "expansion": "Responsible, Accountable, Consulted, Informed",
+    "definition": "Quadro de responsabilidades que define claramente quem Faz (R), quem Aprova (A), quem é Consultado (C) e quem só precisa ser Informado (I) num projeto.",
+    "example": "Para evitar ruídos no projeto, montamos a matriz RACI de todas as etapas.",
+    "department": "Financeiro & Operações",
+    "importance": "especifico",
+    "tip": "Regra de ouro: para cada atividade só deve haver UM \"Accountable\" (dono final da decisão).",
+    "pronunciation": "Rá-ci",
+    "tags": [
+      "gestão",
+      "governança",
+      "projetos"
+    ],
+    "isFavorite": false
+  },
+  {
     "id": "term-1792415239397-xxw0xa",
     "term": "GT",
     "expansion": "Grupo de trabalho",
@@ -334,693 +1108,5 @@
     "tags": [],
     "isFavorite": false,
     "updatedAt": "2026-10-19T12:24:04.275Z"
-  },
-  {
-    "id": "term-okr",
-    "term": "OKR",
-    "expansion": "Objectives and Key Results (Objetivos e Resultados-Chave)",
-    "definition": "Metodologia de gestão de metas usada para alinhar a direção estratégica da empresa com entregas mensuráveis e desafiadoras trimestrais.",
-    "example": "Pessoal, vamos revisar os OKRs do Q3 na reunião de alinhamento de amanhã.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "O Objetivo diz para ONDE vamos; o Key Result (KR) é a métrica numérica que prova se chegamos lá.",
-    "pronunciation": "O-K-R (ou Ôu-Kêi-Ár)",
-    "tags": [
-      "metas",
-      "estratégia",
-      "trimestre",
-      "planejamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-sla",
-    "term": "SLA",
-    "expansion": "Service Level Agreement (Acordo de Nível de Serviço)",
-    "definition": "Prazo ou padrão formal acordado entre equipes ou com clientes para atender a um chamado, ticket ou entrega.",
-    "example": "O time de suporte tem um SLA de até 2 horas para incidentes críticos.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Quando alguém disser \"estourou o SLA\", significa que o prazo máximo acordado foi ultrapassado.",
-    "pronunciation": "S-L-A",
-    "tags": [
-      "atendimento",
-      "prazos",
-      "suporte",
-      "qualidade"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-kpi",
-    "term": "KPI",
-    "expansion": "Key Performance Indicator (Indicador-Chave de Desempenho)",
-    "definition": "Indicadores quantitativos contínuos que medem a saúde e a performance operacional dos processos da área.",
-    "example": "Nossos principais KPIs este mês são taxa de conversão e tempo médio de resposta.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Diferença clássica: KPI monitora a rotina constante; OKR busca uma mudança de patamar.",
-    "pronunciation": "K-P-I (ou Kêi-Pí-Ai)",
-    "tags": [
-      "métricas",
-      "performance",
-      "dashboards"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-mvp",
-    "term": "MVP",
-    "expansion": "Minimum Viable Product (Produto Mínimo Viável)",
-    "definition": "A versão mais enxuta e funcional de uma nova funcionalidade ou produto, lançada rapidamente para validar valor com usuários reais.",
-    "example": "Vamos lançar um MVP dessa funcionalidade apenas para um grupo piloto de 10 clientes.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "MVP não é algo malfeito, e sim a solução mais simples que resolve o problema central.",
-    "pronunciation": "M-V-P",
-    "tags": [
-      "produto",
-      "lançamento",
-      "agilidade",
-      "validação"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-pr",
-    "term": "PR",
-    "expansion": "Pull Request",
-    "definition": "Solicitação feita por um desenvolvedor para que outros colegas revisem o código alterado antes de integrá-lo ao sistema principal.",
-    "example": "Abri o PR da tela de pagamentos, alguém do time pode fazer o code review?",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "No contexto de marketing, PR também pode significar Public Relations (Relações Públicas).",
-    "pronunciation": "P-R (ou Pê-Érre)",
-    "tags": [
-      "código",
-      "desenvolvimento",
-      "review",
-      "github"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-poc",
-    "term": "POC",
-    "expansion": "Proof of Concept (Prova de Conceito)",
-    "definition": "Um teste experimental técnico para comprovar se uma ideia, tecnologia ou integração é viável na prática.",
-    "example": "Antes de assinar o contrato da nova ferramenta, vamos rodar uma POC de duas semanas.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Geralmente tem código descartável, feito apenas para responder à pergunta: \"é tecnicamente possível?\".",
-    "pronunciation": "Póque ou P-O-C",
-    "tags": [
-      "tecnologia",
-      "teste",
-      "viabilidade"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-api",
-    "term": "API",
-    "expansion": "Application Programming Interface (Interface de Programação de Aplicações)",
-    "definition": "Ponte de comunicação padronizada que permite que sistemas e softwares diferentes troquem dados de forma automatizada.",
-    "example": "Integramos nossa plataforma ao sistema de faturamento via API.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Pense na API como o garçom de um restaurante: leva o seu pedido à cozinha e traz a resposta.",
-    "pronunciation": "A-P-I (ou Ei-Pí-Ai)",
-    "tags": [
-      "integração",
-      "dados",
-      "sistemas"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-qa",
-    "term": "QA",
-    "expansion": "Quality Assurance (Garantia de Qualidade)",
-    "definition": "Profissional ou disciplina responsável por testar sistemas, encontrar bugs e assegurar a estabilidade antes da entrega aos usuários.",
-    "example": "A tarefa já passou por desenvolvimento e agora está em validação com o QA.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Muitas vezes usado para se referir tanto à pessoa (\"o QA testou?\") quanto ao ambiente (\"ambiente de QA\").",
-    "pronunciation": "Q-A (ou Kiú-Ei)",
-    "tags": [
-      "testes",
-      "qualidade",
-      "bugs"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-prod-homolog",
-    "term": "Prod & Homolog",
-    "expansion": "Produção e Homologação (Staging)",
-    "definition": "Os dois ambientes cruciais: Homologação é onde a equipe testa com segurança; Produção é onde os clientes e usuários reais usam o sistema.",
-    "example": "Testamos com sucesso em homolog, hoje à noite fazemos o deploy em prod.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Cuidado redobrado: nunca rode testes manuais ou scripts de exclusão diretamente em Prod!",
-    "pronunciation": "Pród e Homológ",
-    "tags": [
-      "infraestrutura",
-      "servidores",
-      "deploy"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-deploy",
-    "term": "Deploy",
-    "expansion": "Deployment (Implantação / Publicação)",
-    "definition": "O ato de compilar e publicar uma nova versão de software, site ou aplicativo para que fique acessível aos usuários.",
-    "example": "O deploy da versão 2.4 está programado para as 19h para não impactar os acessos.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Em muitas empresas existe a regra de ouro: \"Evite fazer deploy nas sextas-feiras à tarde\".",
-    "pronunciation": "Di-plói",
-    "tags": [
-      "software",
-      "lançamento",
-      "produção"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-backlog",
-    "term": "Backlog",
-    "expansion": "Product Backlog / Sprint Backlog",
-    "definition": "Lista organizada e priorizada de todas as tarefas, melhorias, bugs e funcionalidades aguardando desenvolvimento.",
-    "example": "Essa melhoria faz sentido, mas vamos colocá-la no backlog para priorizar na próxima sprint.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "O Product Manager (PM) é quem geralmente prioriza o que sai do backlog para a execução.",
-    "pronunciation": "Béqui-lógui",
-    "tags": [
-      "scrum",
-      "agile",
-      "tarefas"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-sprint",
-    "term": "Sprint",
-    "expansion": "Ciclo de Desenvolvimento Ágil",
-    "definition": "Período de tempo fixo (comumente 1 ou 2 semanas) no qual a equipe se compromete a concluir um pacote específico de tarefas.",
-    "example": "Na Sprint 45 vamos focar exclusivamente na melhoria da tela de login e onboarding.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "Ao final de cada sprint geralmente acontecem a Sprint Review (demonstração) e a Retrospectiva.",
-    "pronunciation": "Es-printe",
-    "tags": [
-      "scrum",
-      "agile",
-      "prazos"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-daily",
-    "term": "Daily",
-    "expansion": "Daily Stand-up Meeting",
-    "definition": "Reunião diária e rápida (10 a 15 min) da equipe para compartilhar o que foi feito ontem, o que fará hoje e se há algum impedimento.",
-    "example": "Nos vemos na daily das 9h30 para alinhar as entregas do dia.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Mantenha o foco: a daily não é para resolver problemas longos, e sim para sinalizar quem precisa de ajuda.",
-    "pronunciation": "Dêili",
-    "tags": [
-      "reunião",
-      "alinhamento",
-      "rotina"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-ux-ui",
-    "term": "UX / UI",
-    "expansion": "User Experience (Experiência do Usuário) & User Interface (Interface do Usuário)",
-    "definition": "UX é como o usuário se sente e navega pelo fluxo do produto; UI é a camada visual (cores, botões, tipografia e layout).",
-    "example": "O time de UX/UI redesenhou o fluxo de checkout e reduziu os passos pela metade.",
-    "department": "Tecnologia & Produto",
-    "importance": "frequente",
-    "tip": "UX pensa na jornada e na facilidade de uso; UI cria o visual polido que você vê na tela.",
-    "pronunciation": "U-Xis / U-Í",
-    "tags": [
-      "design",
-      "interface",
-      "pesquisa"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-ltv",
-    "term": "LTV",
-    "expansion": "Lifetime Value (Valor do Tempo de Vida do Cliente)",
-    "definition": "Estimativa de quanto dinheiro um cliente gera em receita para a empresa durante todo o tempo em que permanece como cliente.",
-    "example": "Clientes que utilizam nossos módulos avançados têm um LTV 40% superior à média.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Quanto maior a retenção e menor o cancelamento, maior será o LTV.",
-    "pronunciation": "L-T-V (Éle-Tê-Vê)",
-    "tags": [
-      "vendas",
-      "retenção",
-      "faturamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-mrr-arr",
-    "term": "MRR & ARR",
-    "expansion": "Monthly Recurring Revenue & Annual Recurring Revenue",
-    "definition": "Receita Recorrente Mensal (MRR) e Receita Recorrente Anual (ARR) geradas por contratos ou planos de assinatura.",
-    "example": "Nossa meta é ultrapassar R$ 500 mil em MRR antes do final do segundo semestre.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Essas duas métricas são os pilares de avaliação para qualquer empresa baseada em SaaS ou mensalidades.",
-    "pronunciation": "M-R-R e A-R-R",
-    "tags": [
-      "receita",
-      "faturamento",
-      "assinatura",
-      "finanças"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-b2b-b2c",
-    "term": "B2B & B2C",
-    "expansion": "Business to Business & Business to Consumer",
-    "definition": "B2B: vendas e produtos de empresa para empresa. B2C: vendas e produtos direcionados diretamente ao consumidor final.",
-    "example": "Nosso produto principal é B2B, focado em escolas e redes de ensino.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Existem também B2B2C (vende para empresa que repassa ao consumidor) e B2G (vendas para o governo).",
-    "pronunciation": "Bi-tu-Bi e Bi-tu-Ci",
-    "tags": [
-      "mercado",
-      "modelo-de-negócio"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-icp",
-    "term": "ICP",
-    "expansion": "Ideal Customer Profile (Perfil de Cliente Ideal)",
-    "definition": "Descrição detalhada do tipo de cliente que mais se beneficia do produto, tem maior taxa de retenção e menor custo de venda.",
-    "example": "Vamos focar a prospecção ativa apenas em contas que se enquadram 100% no nosso ICP.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Diferente de \"persona\" (que foca no indivíduo), o ICP foca nas características da organização contratante.",
-    "pronunciation": "I-C-P (ou Ai-Cí-Pí)",
-    "tags": [
-      "vendas",
-      "prospecção",
-      "estratégia"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-ebitda",
-    "term": "EBITDA",
-    "expansion": "Lucros Antes de Juros, Impostos, Depreciação e Amortização (LAJIDA)",
-    "definition": "Indicador financeiro que mede a capacidade de geração de caixa puramente operacional da empresa, sem distorções financeiras ou fiscais.",
-    "example": "A margem EBITDA da empresa cresceu 4 pontos percentuais no último balanço.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Muito acompanhado por investidores e conselhos de administração para avaliar a saúde da operação.",
-    "pronunciation": "Ebítida ou I-B-I-T-D-A",
-    "tags": [
-      "finanças",
-      "lucratividade",
-      "gestão"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-opex-capex",
-    "term": "OPEX & CAPEX",
-    "expansion": "Operational Expenditure & Capital Expenditure",
-    "definition": "OPEX: despesas contínuas de operação (salários, nuvem, aluguel). CAPEX: investimentos em bens de capital e ativos duradouros (compra de servidores, reformas).",
-    "example": "Migrar nossos servidores para nuvem reduziu nosso CAPEX e transformou o custo em OPEX mensal.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Decisões entre OPEX e CAPEX afetam diretamente a tributação e o fluxo de caixa da empresa.",
-    "pronunciation": "Ópequis e Képequis",
-    "tags": [
-      "contabilidade",
-      "custos",
-      "orçamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-dre",
-    "term": "DRE",
-    "expansion": "Demonstração do Resultado do Exercício",
-    "definition": "Relatório contábil consolidado que sintetiza receitas, custos, despesas e impostos para evidenciar se houve lucro ou prejuízo no período.",
-    "example": "Na reunião de resultados, o diretor financeiro apresentará a DRE do último trimestre.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Costuma ser analisada mensalmente e anualmente pelos gestores para controle de despesas.",
-    "pronunciation": "D-R-E",
-    "tags": [
-      "finanças",
-      "relatório",
-      "contabilidade"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-pipeline",
-    "term": "Pipeline",
-    "expansion": "Funil de Vendas / Fluxo de Oportunidades",
-    "definition": "Representação visual de todas as negociações em andamento, divididas pelas etapas do funil até o fechamento.",
-    "example": "Precisamos de mais leads qualificados para alimentar o pipeline de vendas do próximo mês.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "Também é usado em tecnologia (CI/CD pipeline) para se referir ao fluxo de automação de testes e deploys.",
-    "pronunciation": "Paipe-laine",
-    "tags": [
-      "crm",
-      "vendas",
-      "funil"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-nps",
-    "term": "NPS",
-    "expansion": "Net Promoter Score",
-    "definition": "Pesquisa com a pergunta clássica: \"De 0 a 10, quanto você recomendaria nossa empresa para um colega?\". Calcula promotores menos detratores.",
-    "example": "Nosso NPS subiu de 62 para 74 após as melhorias no suporte ao cliente.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Notas 9-10 são Promotores, 7-8 são Neutros, 0-6 são Detratores.",
-    "pronunciation": "N-P-S",
-    "tags": [
-      "satisfação",
-      "cliente",
-      "pesquisa"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-1-1",
-    "term": "1:1",
-    "expansion": "One-on-One (Reunião Um a Um)",
-    "definition": "Encontro periódico individual entre líder e liderado focado em feedback, desenvolvimento de carreira, alinhamento de expectativas e escuta ativa.",
-    "example": "Tenho minha 1:1 quinzenal com a minha liderança na quinta-feira à tarde.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "A 1:1 é a reunião DO LIDERADO. Traga suas dúvidas, dores, conquistas e planos para a pauta.",
-    "pronunciation": "Uan-on-Uan (ou Um pra Um)",
-    "tags": [
-      "feedback",
-      "carreira",
-      "liderança",
-      "alinhamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-onboarding",
-    "term": "Onboarding",
-    "expansion": "Processo de Integração e Acolhimento de Novos Colaboradores",
-    "definition": "Período e conjunto de treinamentos para que um novo membro da equipe conheça a cultura, as ferramentas, os processos e comece a produzir com segurança.",
-    "example": "Durante minha primeira semana passei pelo onboarding institucional da empresa.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "Este próprio glossário foi criado para facilitar o seu onboarding! Não hesite em perguntar sobre qualquer dúvida.",
-    "pronunciation": "On-bórdin",
-    "tags": [
-      "integração",
-      "início",
-      "rh",
-      "treinamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-pdi",
-    "term": "PDI",
-    "expansion": "Plano de Desenvolvimento Individual",
-    "definition": "Roteiro estruturado com ações, cursos, mentorias e metas que o colaborador estabelece junto à sua liderança para crescer na carreira.",
-    "example": "Coloquei no meu PDI deste ano uma meta de aprofundar em análise de dados e liderança de projetos.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "Revise seu PDI nas reuniões de 1:1 ao menos uma vez por mês para não deixá-lo engavetado.",
-    "pronunciation": "P-D-I",
-    "tags": [
-      "carreira",
-      "evolução",
-      "metas-pessoais"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-turnover",
-    "term": "Turnover",
-    "expansion": "Taxa de Rotatividade de Funcionários",
-    "definition": "Índice que mede a relação entre admissões e demissões/saídas voluntárias de funcionários em determinado período.",
-    "example": "A criação de novos planos de carreira ajudou a reduzir o turnover na área de tecnologia.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "Turnover saudável oxigena a empresa; turnover muito alto pode indicar problemas de clima ou remuneração.",
-    "pronunciation": "Tãrn-ôuver",
-    "tags": [
-      "rh",
-      "equipe",
-      "retenção"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-headcount",
-    "term": "Headcount",
-    "expansion": "Contagem Total de Colaboradores / Número de Pessoas na Equipe",
-    "definition": "O número total de pessoas trabalhando em uma empresa, departamento ou projeto específico.",
-    "example": "O headcount aprovado para o time de produto é de 8 pessoas até o fim do ano.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "frequente",
-    "tip": "Quando dizem \"abertura de headcount\", significa autorização formal para abrir uma nova vaga de emprego.",
-    "pronunciation": "Rédi-caunte",
-    "tags": [
-      "vagas",
-      "equipe",
-      "orçamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-evp",
-    "term": "EVP",
-    "expansion": "Employee Value Proposition (Proposta de Valor ao Empregado)",
-    "definition": "Conjunto de benefícios, cultura, valores e oportunidades de desenvolvimento que a empresa oferece aos seus colaboradores em troca do seu talento.",
-    "example": "Nosso EVP inclui horários flexíveis, auxílio educação e programa de apoio à saúde mental.",
-    "department": "Gente & Gestão (RH)",
-    "importance": "especifico",
-    "tip": "É o que atrai e retém os melhores profissionais no mercado.",
-    "pronunciation": "E-V-P",
-    "tags": [
-      "benefícios",
-      "cultura",
-      "marca-empregadora"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-fyi",
-    "term": "FYI",
-    "expansion": "For Your Information (Para Seu Conhecimento)",
-    "definition": "Indica que a mensagem ou e-mail está sendo compartilhado apenas para você ficar por dentro, sem necessidade de tomar uma ação imediata.",
-    "example": "FYI: o cliente acabou de confirmar a assinatura do contrato.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Se você receber um e-mail com \"FYI\", geralmente significa \"leia quando puder, só para saber\".",
-    "pronunciation": "Ef-Uai-Ai ou F-Y-I",
-    "tags": [
-      "comunicação",
-      "email",
-      "slack"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-eta",
-    "term": "ETA",
-    "expansion": "Estimated Time of Arrival (Previsão Estimada de Conclusão ou Chegada)",
-    "definition": "Horário ou data prevista para a conclusão de uma entrega, resolução de chamado ou chegada de alguém.",
-    "example": "Qual é o ETA para a liberação da funcionalidade de relatórios?",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Quando alguém no Slack perguntar \"Qual o seu ETA?\", está perguntando \"Para quando você estima entregar?\".",
-    "pronunciation": "I-T-A ou Ê-Tê-Á",
-    "tags": [
-      "prazos",
-      "estimativa",
-      "gestão"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-q1-q4",
-    "term": "Q1, Q2, Q3, Q4",
-    "expansion": "Quarter 1 a 4 (Primeiro ao Quarto Trimestre do Ano)",
-    "definition": "Divisão do ano fiscal e de negócios em quatro blocos de 3 meses: Q1 (Jan-Mar), Q2 (Abr-Jun), Q3 (Jul-Set) e Q4 (Out-Dez).",
-    "example": "Nosso planejamento financeiro para o Q4 prevê a contratação de novos especialistas.",
-    "department": "Financeiro & Operações",
-    "importance": "frequente",
-    "tip": "Empresas usam quarters para traçar metas, apurar lucros e lançar grandes projetos.",
-    "pronunciation": "Quarto 1 / Qui-Um",
-    "tags": [
-      "calendário",
-      "trimestre",
-      "planejamento"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-kickoff",
-    "term": "Kick-off",
-    "expansion": "Reunião Inicial de Alinhamento e Lançamento de Projeto",
-    "definition": "Primeira reunião formal realizada no início de um novo projeto, parceria ou ciclo para alinhar objetivos, responsabilidades e cronograma com todos os envolvidos.",
-    "example": "Teremos o kick-off do novo sistema de matrículas na próxima terça-feira.",
-    "department": "Geral & Comunicação",
-    "importance": "frequente",
-    "tip": "Uma boa oportunidade para tirar todas as dúvidas e entender quem é quem no projeto.",
-    "pronunciation": "Quique-ófe",
-    "tags": [
-      "reunião",
-      "lançamento",
-      "projetos"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-bncc",
-    "term": "BNCC",
-    "expansion": "Base Nacional Comum Curricular",
-    "definition": "Documento normativo federal que define o conjunto de aprendizagens essenciais que todos os alunos devem desenvolver ao longo da Educação Básica no Brasil.",
-    "example": "Todos os materiais didáticos da coleção deste ano foram atualizados conforme as habilidades da BNCC.",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tip": "Termo central e obrigatório em qualquer empresa de educação básica, editoras e edtechs no Brasil.",
-    "pronunciation": "B-N-C-C (Bê-Éne-Cê-Cê)",
-    "tags": [
-      "educação",
-      "legislação",
-      "pedagógico",
-      "currículo"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-lms",
-    "term": "LMS",
-    "expansion": "Learning Management System (Sistema de Gestão da Aprendizagem)",
-    "definition": "Plataforma digital ou software utilizado para hospedar cursos, disponibilizar videoaulas, acompanhar notas e gerenciar a jornada dos estudantes.",
-    "example": "Mais de 50 mil alunos acessam os simulados e tarefas diariamente através do nosso LMS.",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tip": "Exemplos famosos de LMS incluem Moodle, Canvas, Blackboard e plataformas proprietárias.",
-    "pronunciation": "L-M-S (Éle-Eme-Ésse)",
-    "tags": [
-      "educação",
-      "plataforma",
-      "edtech",
-      "tecnologia"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-ava",
-    "term": "AVA",
-    "expansion": "Ambiente Virtual de Aprendizagem",
-    "definition": "Espaço digital onde acontecem as interações pedagógicas, entrega de atividades e fóruns de discussão entre alunos e professores.",
-    "example": "Os professores já cadastraram as atividades avaliativas no AVA.",
-    "department": "Educação & Pedagógico",
-    "importance": "frequente",
-    "tip": "É frequentemente usado como sinônimo em português para LMS.",
-    "pronunciation": "A-V-A (Áva)",
-    "tags": [
-      "educação",
-      "ead",
-      "estudos"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-itinerarios",
-    "term": "Itinerários Formativos",
-    "expansion": "Novo Ensino Médio - Trilhas de Aprofundamento",
-    "definition": "Conjunto de disciplinas, oficinas e projetos que os estudantes do Novo Ensino Médio podem escolher para aprofundar em áreas específicas do conhecimento.",
-    "example": "Desenvolvemos módulos digitais específicos para os itinerários de Ciências da Natureza.",
-    "department": "Educação & Pedagógico",
-    "importance": "especifico",
-    "tip": "Tema muito frequente nas conversas com escolas parceiras e redes educacionais.",
-    "pronunciation": "Itinerários",
-    "tags": [
-      "ensino-médio",
-      "currículo",
-      "escolas"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-sdr-bdr",
-    "term": "SDR & BDR",
-    "expansion": "Sales Development Representative & Business Development Representative",
-    "definition": "Profissionais de pré-vendas responsáveis por prospectar, qualificar leads e agendar reuniões com os executivos de contas (Closers).",
-    "example": "Nosso time de SDRs gerou mais de 120 oportunidades qualificadas nesta semana.",
-    "department": "Negócios & Vendas",
-    "importance": "frequente",
-    "tip": "SDR geralmente foca em leads inbound (que vieram pelo site); BDR foca em prospecção outbound (ativa no mercado).",
-    "pronunciation": "S-D-R e B-D-R",
-    "tags": [
-      "vendas",
-      "prospecção",
-      "leads"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-seo",
-    "term": "SEO",
-    "expansion": "Search Engine Optimization (Otimização para Mecanismos de Busca)",
-    "definition": "Técnicas para posicionar artigos, páginas e sites nos primeiros resultados orgânicos (não pagos) do Google.",
-    "example": "Otimizamos o artigo do blog para SEO e dobramos as visitas orgânicas em dois meses.",
-    "department": "Marketing",
-    "importance": "frequente",
-    "tip": "SEO traz tráfego qualificado de longo prazo sem precisar pagar por clique.",
-    "pronunciation": "S-E-O (ou Ésse-E-Ó)",
-    "tags": [
-      "marketing",
-      "google",
-      "tráfego"
-    ],
-    "isFavorite": false
-  },
-  {
-    "id": "term-raci",
-    "term": "Matriz RACI",
-    "expansion": "Responsible, Accountable, Consulted, Informed",
-    "definition": "Quadro de responsabilidades que define claramente quem Faz (R), quem Aprova (A), quem é Consultado (C) e quem só precisa ser Informado (I) num projeto.",
-    "example": "Para evitar ruídos no projeto, montamos a matriz RACI de todas as etapas.",
-    "department": "Financeiro & Operações",
-    "importance": "especifico",
-    "tip": "Regra de ouro: para cada atividade só deve haver UM \"Accountable\" (dono final da decisão).",
-    "pronunciation": "Rá-ci",
-    "tags": [
-      "gestão",
-      "governança",
-      "projetos"
-    ],
-    "isFavorite": false
   }
 ]
