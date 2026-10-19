@@ -13,6 +13,7 @@ import {
 const PENDING_KEY = 'company_glossary_pending_v2';
 const LEGACY_PENDING_KEY = 'company_glossary_pending_v1';
 const LEGACY_LOCAL_KEY = 'company_glossary_terms_v1';
+const TOMBSTONE_KEY = 'glossary_deleted_ids_v1';
 
 export interface PendingGlossaryState {
   terms: GlossaryTerm[];
@@ -76,6 +77,32 @@ export function loadPendingState(): PendingGlossaryState | null {
 
 export function loadPendingTerms(): GlossaryTerm[] | null {
   return loadPendingState()?.terms ?? null;
+}
+
+export function loadTombstones(): string[] {
+  try {
+    const raw = localStorage.getItem(TOMBSTONE_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.filter((id) => typeof id === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveTombstones(ids: string[]): void {
+  const unique = [...new Set(ids)];
+  if (unique.length === 0) {
+    localStorage.removeItem(TOMBSTONE_KEY);
+    return;
+  }
+  localStorage.setItem(TOMBSTONE_KEY, JSON.stringify(unique));
+}
+
+export function pruneTombstones(remote: GlossaryTerm[]): string[] {
+  const remoteIds = new Set(remote.map((term) => term.id));
+  const remaining = loadTombstones().filter((id) => remoteIds.has(id));
+  saveTombstones(remaining);
+  return remaining;
 }
 
 export function savePendingTerms(terms: GlossaryTerm[] | null, deletedIds: string[] = []): void {
@@ -161,7 +188,7 @@ export async function persistTerms(
         deletedIds,
       );
       await publishTermsToGithub(merged, token, file.sha);
-      savePendingTerms(null);
+      savePendingTerms(merged, deletedIds);
       return merged;
     } catch (error) {
       lastError = error instanceof Error ? error : new Error('Não foi possível salvar.');
