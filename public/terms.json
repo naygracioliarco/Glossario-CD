@@ -1,16 +1,24 @@
 [
   {
-    "id": "term-1792432830743-lh19cm",
-    "term": "NAV",
-    "expansion": "Nave a Vela",
-    "definition": "Sigla para o time do Nave a Vela (NaV)",
-    "example": "Vamos ter uma interação como pessoal do Nav",
-    "department": "Educação & Pedagógico",
+    "id": "term-1792763453769-hx4qv5",
+    "term": "SCM",
+    "expansion": "Supply Chain Management (Gestão da Cadeia de Suprimentos)",
+    "definition": "É o gerenciamento completo de todo o fluxo de um produto ou serviço, desde a compra da matéria-prima com os fornecedores até a entrega final para o cliente.",
+    "example": "Precisamos alinhar com o time de SCM o prazo de entrega dos novos insumos.",
+    "department": "Financeiro & Operações",
     "importance": "frequente",
-    "pronunciation": "Nave",
-    "tags": [],
+    "tip": "SCM não é só o transporte (logística). Envolve também compras, estoque, planejamento e relacionamento com fornecedores. É o ecossistema inteiro.",
+    "pronunciation": "Supply Chain Management",
+    "tags": [
+      "supply chain",
+      "logística",
+      "compras",
+      "estoque",
+      "operações",
+      "cadeia de suprimentos"
+    ],
     "isFavorite": false,
-    "updatedAt": "2026-10-19T18:00:30.743Z"
+    "updatedAt": "2026-10-23T13:50:53.769Z"
   },
   {
     "id": "term-1792428880920-oo5rmt",
@@ -860,5 +868,18 @@
     "tags": [],
     "isFavorite": false,
     "updatedAt": "2026-10-19T12:24:04.275Z"
+  },
+  {
+    "id": "term-1792432830743-lh19cm",
+    "term": "NAV",
+    "expansion": "Nave a Vela",
+    "definition": "Sigla para o time do Nave a Vela (NaV)",
+    "example": "Vamos ter uma interação como pessoal do Nav",
+    "department": "Educação & Pedagógico",
+    "importance": "frequente",
+    "pronunciation": "Nave",
+    "tags": [],
+    "isFavorite": false,
+    "updatedAt": "2026-10-19T18:00:30.743Z"
   }
 ]
